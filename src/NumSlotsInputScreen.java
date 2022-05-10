@@ -11,7 +11,7 @@ public class NumSlotsInputScreen {
     private final JTextField numStudentSlotsField = new JTextField();
     private final JButton submitSlotNumbersButton = new JButton("Start");
     private final GridBagLayout gridBagLayout = new GridBagLayout();
-    private final GridBagConstraints gridBagConstraints = new GridBagConstraints();
+    private final GridBagConstraints gbc = new GridBagConstraints();
 
     private final JLabel errorMessage = new JLabel();
 
@@ -40,8 +40,8 @@ public class NumSlotsInputScreen {
         return gridBagLayout;
     }
 
-    public GridBagConstraints getGridBagConstraints() {
-        return gridBagConstraints;
+    public GridBagConstraints getGbc() {
+        return gbc;
     }
 
     public JLabel getInstructions() {
@@ -55,29 +55,29 @@ public class NumSlotsInputScreen {
     private void changeLayout() {
 
         // Add margins to top of components.
-        this.gridBagConstraints.insets = new Insets(5, 0, 0, 0);
+        this.gbc.insets = new Insets(5, 0, 0, 0);
 
         // Change colour of error message.
         this.errorMessage.setForeground(Color.RED);
 
-        this.gridBagConstraints.gridx = 0;
-        this.gridBagConstraints.gridy = 0;
-        this.inputPanel.add(this.instructions, this.gridBagConstraints);
+        this.gbc.gridx = 0;
+        this.gbc.gridy = 0;
+        this.inputPanel.add(this.instructions, this.gbc);
 
-        this.gridBagConstraints.gridx = 0;
-        this.gridBagConstraints.gridy = 1;
-        this.inputPanel.add(this.numStaffSlotsField, this.gridBagConstraints);
+        this.gbc.gridx = 0;
+        this.gbc.gridy = 1;
+        this.inputPanel.add(this.numStaffSlotsField, this.gbc);
 
-        this.gridBagConstraints.gridx = 0;
-        this.gridBagConstraints.gridy = 2;
-        this.inputPanel.add(this.numStudentSlotsField, this.gridBagConstraints);
+        this.gbc.gridx = 0;
+        this.gbc.gridy = 2;
+        this.inputPanel.add(this.numStudentSlotsField, this.gbc);
 
-        this.gridBagConstraints.gridx = 0;
-        this.gridBagConstraints.gridy = 3;
-        this.inputPanel.add(this.submitSlotNumbersButton, this.gridBagConstraints);
+        this.gbc.gridx = 0;
+        this.gbc.gridy = 3;
+        this.inputPanel.add(this.submitSlotNumbersButton, this.gbc);
 
-        this.gridBagConstraints.gridx = 0;
-        this.gridBagConstraints.gridy = 4;
-        this.inputPanel.add(this.errorMessage, this.gridBagConstraints);
+        this.gbc.gridx = 0;
+        this.gbc.gridy = 4;
+        this.inputPanel.add(this.errorMessage, this.gbc);
     }
 }
