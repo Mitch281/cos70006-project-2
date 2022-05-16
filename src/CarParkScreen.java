@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class CarParkScreen {
 
@@ -14,23 +15,48 @@ public class CarParkScreen {
     private final CarPark carPark = new CarPark();
     private final LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton = new LinkedHashMap<>();
 
+    private String parkingSlotInFocusID = "";
+
     public CarParkScreen() {
         this.carParkPanel.setLayout(new BorderLayout());
         this.carParkPanel.add(this.parkingSlotsPanel.getParkingSlotsPanel(), BorderLayout.LINE_START);
         this.carParkPanel.add(this.optionsPanel.getOptionsPanel(), BorderLayout.LINE_END);
     }
 
+    public JPanel getCarParkPanel() {
+        return carParkPanel;
+    }
+
     public void paintParkingSlots(int numStaffSlots, int numStudentSlots) {
         this.parkingSlotsPanel.paintParkingSlots(this.parkingSlotToButton, this.carPark, numStaffSlots, numStudentSlots);
         this.parkingSlotsPanel.setLayout(this.parkingSlotToButton, numStaffSlots, numStudentSlots);
+        this.addClickListenersToParkingSlots();
     }
 
     public void paintOptionsPanelHeader() {
         this.optionsPanel.paintOptionsPanelHeader();
+        this.optionsPanel.paintParkingSlotID();
     }
 
-    public JPanel getCarParkPanel() {
-        return carParkPanel;
+    private void addClickListenersToParkingSlots() {
+        for (Map.Entry<ParkingSlot, JButton> entry: parkingSlotToButton.entrySet()) {
+            final ParkingSlot parkingSlot = entry.getKey();
+            final JButton parkingSlotButton = entry.getValue();
+
+            parkingSlotButton.addActionListener(e -> {
+                handleParkingSlotButtonClick(parkingSlot);
+            });
+        }
+    }
+
+    private void handleParkingSlotButtonClick(ParkingSlot parkingSlot) {
+        final String parkingSlotIdentifier = parkingSlot.getIdentifier();
+        if (parkingSlotIdentifier.equals(this.parkingSlotInFocusID)) {
+            this.parkingSlotInFocusID = "";
+        } else {
+            this.parkingSlotInFocusID = parkingSlotIdentifier;
+        }
+        this.optionsPanel.setTextOfSlotLabel(this.parkingSlotInFocusID);
     }
 
     // TODO: Handle screen resizing so that we can make border layout responsive.

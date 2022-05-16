@@ -19,7 +19,7 @@ public class ParkingSlotsPanel {
     private void populateParkingSlotToButton(LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, CarPark carPark, int numStaffSlots, int numStudentSlots) {
         carPark.createParkingSlots(numStaffSlots, numStudentSlots);
         for (ParkingSlot parkingSlot: carPark.getParkingSlots().values()) {
-            JButton parkingSlotButton = new JButton();
+            final JButton parkingSlotButton = new JButton();
             parkingSlotToButton.put(parkingSlot, parkingSlotButton);
         }
     }
@@ -27,8 +27,8 @@ public class ParkingSlotsPanel {
     public void paintParkingSlots(LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, CarPark carPark, int numStaffSlots, int numStudentSlots) {
         this.populateParkingSlotToButton(parkingSlotToButton, carPark, numStaffSlots, numStudentSlots);
         for (Map.Entry<ParkingSlot, JButton> entry: parkingSlotToButton.entrySet()) {
-            ParkingSlot parkingSlot = entry.getKey();
-            JButton parkingSlotButton = entry.getValue();
+            final ParkingSlot parkingSlot = entry.getKey();
+            final JButton parkingSlotButton = entry.getValue();
 
             String parkingSlotIdentifier = parkingSlot.getIdentifier();
             boolean isParkingSlotOccupied = parkingSlot.isSlotOccupied();
