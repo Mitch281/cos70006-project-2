@@ -9,9 +9,7 @@ public class CarParkScreen {
 
     private final JPanel carParkPanel = new JPanel();
     private final ParkingSlotsPanel parkingSlotsPanel = new ParkingSlotsPanel();
-
-    private final GridBagConstraints optionsPanelgbc = new GridBagConstraints();
-    private final JPanel optionsPanel = new JPanel(new GridBagLayout());
+    private final CarParkOptionsPanel optionsPanel = new CarParkOptionsPanel();
 
     private final CarPark carPark = new CarPark();
     private final LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton = new LinkedHashMap<>();
@@ -19,10 +17,7 @@ public class CarParkScreen {
     public CarParkScreen() {
         this.carParkPanel.setLayout(new BorderLayout());
         this.carParkPanel.add(this.parkingSlotsPanel.getParkingSlotsPanel(), BorderLayout.LINE_START);
-//        this.carParkPanel.add(this.optionsPanel, BorderLayout.LINE_END);
-//
-//        this.optionsPanel.setPreferredSize(new Dimension(200, 500));
-//        this.paintOptionsPanel();
+        this.carParkPanel.add(this.optionsPanel.getOptionsPanel(), BorderLayout.LINE_END);
     }
 
     public void paintParkingSlots(int numStaffSlots, int numStudentSlots) {
@@ -30,17 +25,13 @@ public class CarParkScreen {
         this.parkingSlotsPanel.setLayout(this.parkingSlotToButton, numStaffSlots, numStudentSlots);
     }
 
+    public void paintOptionsPanelHeader() {
+        this.optionsPanel.paintOptionsPanelHeader();
+    }
+
     public JPanel getCarParkPanel() {
         return carParkPanel;
     }
-
-//    private void paintOptionsPanel() {
-//        this.optionsPanelgbc.gridx = 0;
-//        this.optionsPanelgbc.gridy = 0;
-//        final JLabel optionsPanelHeader = new JLabel("Options");
-//        this.optionsPanel.add(optionsPanelHeader, optionsPanelgbc);
-//        this.optionsPanel.setVisible(true);
-//    }
 
     // TODO: Handle screen resizing so that we can make border layout responsive.
 
