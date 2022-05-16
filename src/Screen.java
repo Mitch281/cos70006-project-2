@@ -58,8 +58,7 @@ public class Screen {
             } else {
                 // User has successfully entered the right amount of slots.
                 changePanel();
-                this.carParkScreen.createCarPark(numStaffSlots, numStudentSlots);
-                this.carParkScreen.setParkingSlotsPanel(numStaffSlots, numStudentSlots);
+                this.carParkScreen.paintParkingSlots(numStaffSlots, numStudentSlots);
             }
         } catch (NumberFormatException exception) {
             this.numSlotsInputScreen.getErrorMessage().setText("Please enter positive numbers for the " +

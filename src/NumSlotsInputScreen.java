@@ -36,18 +36,6 @@ public class NumSlotsInputScreen {
         return submitSlotNumbersButton;
     }
 
-    public GridBagLayout getGridBagLayout() {
-        return gridBagLayout;
-    }
-
-    public GridBagConstraints getGbc() {
-        return gbc;
-    }
-
-    public JLabel getInstructions() {
-        return instructions;
-    }
-
     public JLabel getErrorMessage() {
         return errorMessage;
     }
