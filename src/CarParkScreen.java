@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CarParkScreen {
 
@@ -15,6 +12,9 @@ public class CarParkScreen {
 
     private static final int NUM_ROWS_TEXT_AREA = 1;
     private static final int NUM_COLUMNS_TEXT_AREA = 5;
+
+    private static final String[] ACTIONS = {"park car", "find car", "remove car", "add parking slot",
+            "delete parking slot"};
 
     private static final double PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER = 0.7;
     private static final double OPTIONS_PANEL_WIDTH_MULTIPLIER = 1 - PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER;
@@ -56,9 +56,7 @@ public class CarParkScreen {
             final ParkingSlot parkingSlot = entry.getKey();
             final JButton parkingSlotButton = entry.getValue();
 
-            parkingSlotButton.addActionListener(e -> {
-                handleParkingSlotButtonClick(parkingSlot);
-            });
+            parkingSlotButton.addActionListener(e -> handleParkingSlotButtonClick(parkingSlot));
         }
     }
 
@@ -80,124 +78,37 @@ public class CarParkScreen {
         }
     }
 
-    private ArrayList<String> openDialogInput(JPanel inputPanel, String instructions) {
+    private void openDialogInput(JPanel inputPanel, String instructions, String action) {
         final int result = JOptionPane.showConfirmDialog(null, inputPanel, instructions, JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            return new ArrayList<String>();
+            final HashMap<String, String> inputData = new HashMap<>();
         }
-
-        return null;
-    }
-
-    private JPanel createParkCarInputPanel() {
-        final JPanel carParkInputPanel = new JPanel(new GridBagLayout());
-        final GridBagConstraints gbc = new GridBagConstraints();
-
-        final JPanel carRegistrationInputPanel = new JPanel();
-        carRegistrationInputPanel.add(new JLabel("Car registration: "));
-        carRegistrationInputPanel.add(new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA));
-
-        final JPanel carOwnerInputPanel = new JPanel();
-        carOwnerInputPanel.add(new JLabel("Car owner: "));
-        carOwnerInputPanel.add(new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA));
-
-        final JPanel ownerTypeInputPanel = new JPanel();
-        ownerTypeInputPanel.add(new JLabel("Select Owner Type: "));
-        String ownerTypes[] = {"Staff", "Visitor"};
-        ownerTypeInputPanel.add(new JComboBox<>(ownerTypes));
-
-        final JPanel parkingSlotInputPanel = new JPanel();
-        parkingSlotInputPanel.add(new JLabel("Select Parking Slot to Park Car in: "));
-        final Set<String> parkingSlotIdentifiers = this.carPark.getParkingSlots().keySet();
-        final String parkingSlotIdentifiersArray[] = new String[parkingSlotIdentifiers.size()];
-        int i = 0;
-        for (String parkingSlotIdentifier: parkingSlotIdentifiers) {
-            parkingSlotIdentifiersArray[i] = parkingSlotIdentifier;
-            i++;
-        }
-        parkingSlotInputPanel.add(new JComboBox<>(parkingSlotIdentifiersArray));
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        carParkInputPanel.add(carRegistrationInputPanel, gbc);
-
-        gbc.gridy = 1;
-        carParkInputPanel.add(carOwnerInputPanel, gbc);
-
-        gbc.gridy = 2;
-        carParkInputPanel.add(ownerTypeInputPanel, gbc);
-
-        gbc.gridy = 3;
-        carParkInputPanel.add(parkingSlotInputPanel, gbc);
-
-        return carParkInputPanel;
-    }
-
-    private JPanel createFindCarInputPanel() {
-        final JPanel findCarPanel = new JPanel();
-        findCarPanel.add(new JLabel("Enter Car Registration: "));
-        findCarPanel.add(new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA));
-
-        return findCarPanel;
-    }
-
-    private JPanel createRemoveCarInputPanel() {
-        final JPanel removeCarInputPanel = new JPanel();
-        removeCarInputPanel.add(new JLabel("Enter Car Registration: "));
-        removeCarInputPanel.add(new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA));
-
-        return removeCarInputPanel;
-    }
-
-    private JPanel createAddParkingSlotInputPanel() {
-        final JPanel createParkingSlotInputPanel = new JPanel();
-        createParkingSlotInputPanel.add(new JLabel("Parking Slot Identifier: "));
-        createParkingSlotInputPanel.add(new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA));
-
-        return createParkingSlotInputPanel;
-    }
-
-    private JPanel createDeleteParkingSlotInputPanel() {
-        final JPanel deleteParkingSlotInputPanel = new JPanel();
-
-        final Set<String> parkingSlotIdentifiers = this.carPark.getParkingSlots().keySet();
-        final String parkingSlotIdentifiersArray[] = new String[parkingSlotIdentifiers.size()];
-        int i = 0;
-        for (String parkingSlotIdentifier: parkingSlotIdentifiers) {
-            parkingSlotIdentifiersArray[i] = parkingSlotIdentifier;
-            i++;
-        }
-
-        deleteParkingSlotInputPanel.add(new JLabel("Select Parking Slot to Remove"));
-        deleteParkingSlotInputPanel.add(new JComboBox<>(parkingSlotIdentifiersArray));
-
-        return deleteParkingSlotInputPanel;
     }
 
     private void addButtonActionListeners() {
         this.optionsPanel.getParkCarButton().addActionListener(e -> {
-            final JPanel parkCarInputPanel = this.createParkCarInputPanel();
-            this.openDialogInput(parkCarInputPanel, PARK_CAR_DIALOG_HEADER);
+            final JPanel parkCarInputPanel = CreateActionInputPanels.createParkCarInputPanel(carPark);
+            this.openDialogInput(parkCarInputPanel, PARK_CAR_DIALOG_HEADER, ACTIONS[0]);
         });
 
         this.optionsPanel.getFindCarButton().addActionListener(e -> {
-            final JPanel findCarInputPanel = this.createFindCarInputPanel();
-            this.openDialogInput(findCarInputPanel, FIND_CAR_DIALOG_HEADER);
+            final JPanel findCarInputPanel = CreateActionInputPanels.createFindCarInputPanel();
+            this.openDialogInput(findCarInputPanel, FIND_CAR_DIALOG_HEADER, ACTIONS[1]);
         });
 
         this.optionsPanel.getRemoveCarButton().addActionListener(e -> {
-            final JPanel removeCarInputPanel = this.createRemoveCarInputPanel();
-            this.openDialogInput(removeCarInputPanel, REMOVE_CAR_DIALOG_HEADER);
+            final JPanel removeCarInputPanel = CreateActionInputPanels.createRemoveCarInputPanel();
+            this.openDialogInput(removeCarInputPanel, REMOVE_CAR_DIALOG_HEADER, ACTIONS[2]);
         });
 
         this.optionsPanel.getAddParkingSlotButton().addActionListener(e -> {
-            final JPanel addParkingSlotInputPanel = this.createAddParkingSlotInputPanel();
-            this.openDialogInput(addParkingSlotInputPanel, ADD_PARKING_SLOT_DIALOG_HEADER);
+            final JPanel addParkingSlotInputPanel = CreateActionInputPanels.createAddParkingSlotInputPanel();
+            this.openDialogInput(addParkingSlotInputPanel, ADD_PARKING_SLOT_DIALOG_HEADER, ACTIONS[3]);
         });
 
         this.optionsPanel.getDeleteParkingSlotButton().addActionListener(e -> {
-            final JPanel deleteParkingSlotInputPanel = this.createDeleteParkingSlotInputPanel();
-            this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER);
+            final JPanel deleteParkingSlotInputPanel = CreateActionInputPanels.createDeleteParkingSlotInputPanel(carPark);
+            this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER, ACTIONS[4]);
         });
     }
 
