@@ -33,9 +33,10 @@ public class CarParkScreen {
         this.addClickListenersToParkingSlots();
     }
 
-    public void paintOptionsPanelHeader() {
+    // This is for the initial painting of the options panel.
+    public void paintOptionsPanel() {
         this.optionsPanel.paintOptionsPanelHeader();
-        this.optionsPanel.paintParkingSlotID();
+        this.optionsPanel.paintParkingSlotOptions();
     }
 
     private void addClickListenersToParkingSlots() {
@@ -50,13 +51,21 @@ public class CarParkScreen {
     }
 
     private void handleParkingSlotButtonClick(ParkingSlot parkingSlot) {
+        boolean isParkingSlotInFocus = true;
         final String parkingSlotIdentifier = parkingSlot.getIdentifier();
+        final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(parkingSlotIdentifier);
         if (parkingSlotIdentifier.equals(this.parkingSlotInFocusID)) {
+            isParkingSlotInFocus = false;
             this.parkingSlotInFocusID = "";
         } else {
             this.parkingSlotInFocusID = parkingSlotIdentifier;
         }
-        this.optionsPanel.setTextOfSlotLabel(this.parkingSlotInFocusID);
+
+        if (isParkingSlotInFocus) {
+            this.optionsPanel.repaintParkingSlotOptions(parkingSlotInFocus);
+        } else {
+            this.optionsPanel.unpaintParkingSlotOptions();
+        }
     }
 
     // TODO: Handle screen resizing so that we can make border layout responsive.
