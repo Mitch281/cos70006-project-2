@@ -33,6 +33,26 @@ public class CarParkOptionsPanel {
         return carParkedInSlotLabel;
     }
 
+    public JButton getParkCarButton() {
+        return parkCarButton;
+    }
+
+    public JButton getFindCarButton() {
+        return findCarButton;
+    }
+
+    public JButton getRemoveCarButton() {
+        return removeCarButton;
+    }
+
+    public JButton getAddParkingSlotButton() {
+        return addParkingSlotButton;
+    }
+
+    public JButton getDeleteParkingSlotButton() {
+        return deleteParkingSlotButton;
+    }
+
     public void paintOptionsPanelHeader() {
         final JLabel optionsHeader = new JLabel("Options");
         optionsHeader.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, Constants.OPTIONS_HEADER_FONT_SIZE));
@@ -41,7 +61,7 @@ public class CarParkOptionsPanel {
         this.optionsPanel.add(optionsHeader, gbc);
     }
 
-    // This is needed to paint the options panel the first time.
+    // This is needed to paint the options panel the first time. We also add action listeners to open dialogs here.
     public void paintParkingSlotOptions() {
         this.paintParkingSlotID();
         this.paintCarParkedInSlot();
