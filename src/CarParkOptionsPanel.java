@@ -100,8 +100,12 @@ public class CarParkOptionsPanel {
             this.carParkedInSlotLabel.setText("There is no car parked here");
         } else {
             carParked = parkingSlotInFocus.getCarParked();
-            String carParkedRegistration = carParked.getRegistrationNumber();
-            this.carParkedInSlotLabel.setText(carParkedRegistration + "is parked here.");
+            final String carParkedRegistration = carParked.getRegistrationNumber();
+            final String carOwner = carParked.getOwner();
+            final String carOwnerType = carParked.getOwnerType();
+            final String output = String.format("%s is parked here. This car is owned by the %s named %s.",
+                    carParkedRegistration, carOwner, carOwnerType);
+            this.carParkedInSlotLabel.setText(output);
         }
     }
 
