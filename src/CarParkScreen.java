@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
 import java.util.*;
 
 public class CarParkScreen {
@@ -50,12 +48,9 @@ public class CarParkScreen {
         });
 
         // Resize listener for when user maximises window.
-        window.addWindowStateListener(new WindowStateListener() {
-            @Override
-            public void windowStateChanged(WindowEvent e) {
-                parkingSlotsPanel.setParkingSlotsPanelSize(window);
-                optionsPanel.setCarParkOptionsPanelSize(window);
-            }
+        window.addWindowStateListener(e -> {
+            parkingSlotsPanel.setParkingSlotsPanelSize(window);
+            optionsPanel.setCarParkOptionsPanelSize(window);
         });
     }
 

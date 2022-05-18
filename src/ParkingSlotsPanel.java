@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,7 +19,7 @@ public class ParkingSlotsPanel {
     public void setParkingSlotsPanelSize(JFrame window) {
         final int currentFrameWidth = window.getWidth();
         final int currentFrameHeight = window.getHeight();
-        final double newPanelWidth = (Double) CarParkScreen.PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER * currentFrameWidth;
+        final double newPanelWidth = CarParkScreen.PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER * currentFrameWidth;
         final int newPanelWidthInt = (int) newPanelWidth;
         this.parkingSlotsPanel.setPreferredSize(new Dimension(newPanelWidthInt, currentFrameHeight));
     }
@@ -60,13 +58,13 @@ public class ParkingSlotsPanel {
     }
 
     public void parkCar(ParkingSlot parkingSlotChanged) {
-        final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
+        final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<>(), this.parkingSlotsPanel);
         JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
         parkingSlotButton.setBackground(Color.RED);
     }
 
     public void removeCar(ParkingSlot parkingSlotChanged) {
-        final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
+        final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<>(), this.parkingSlotsPanel);
         JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
         parkingSlotButton.setBackground(Color.GREEN);
     }

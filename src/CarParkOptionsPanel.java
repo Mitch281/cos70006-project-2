@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class CarParkOptionsPanel {
 
@@ -29,21 +27,13 @@ public class CarParkOptionsPanel {
     public void setCarParkOptionsPanelSize(JFrame window) {
         final int currentFrameWidth = window.getWidth();
         final int currentFrameHeight = window.getWidth();
-        final double newPanelWidth = (Double) CarParkScreen.OPTIONS_PANEL_WIDTH_MULTIPLIER * currentFrameWidth;
+        final double newPanelWidth = CarParkScreen.OPTIONS_PANEL_WIDTH_MULTIPLIER * currentFrameWidth;
         final int newPanelWidthInt = (int) newPanelWidth;
         this.optionsPanel.setPreferredSize(new Dimension(newPanelWidthInt, currentFrameHeight));
     }
 
     public JPanel getOptionsPanel() {
         return optionsPanel;
-    }
-
-    public JLabel getParkingSlotIDLabel() {
-        return parkingSlotIDLabel;
-    }
-
-    public JLabel getCarParkedInSlotLabel() {
-        return carParkedInSlotLabel;
     }
 
     public JButton getParkCarButton() {
