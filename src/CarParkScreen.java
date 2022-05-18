@@ -10,6 +10,7 @@ public class CarParkScreen {
     private static final String ADD_PARKING_SLOT_DIALOG_HEADER  = "Add Parking Slot";
     private static final String DELETE_PARKING_SLOT_DIALOG_HEADER  = "Remove Parking Slot";
 
+    // TODO: Add action for unpark car!!!!!!
     public static final String[] ACTIONS = {"park car", "find car", "remove car", "add parking slot",
             "delete parking slot"};
 
@@ -87,18 +88,18 @@ public class CarParkScreen {
     }
 
     private void handleParkCar(JPanel inputPanel) {
-        final HashMap<String, Component> namesToComponents = this.createNamesToComponentsMap(new HashMap<>(), inputPanel);
+        final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
 
-        final JTextArea carRegistrationTextArea = (JTextArea) namesToComponents.get(CreateActionInputPanels.CAR_REG_TEXT_AREA_NAME);
+        final JTextArea carRegistrationTextArea = (JTextArea) namesToComponents.get(Util.CAR_REG_TEXT_AREA_NAME);
         final String carRegistration = carRegistrationTextArea.getText();
 
-        final JTextArea carOwnerTextArea = (JTextArea) namesToComponents.get(CreateActionInputPanels.CAR_OWNER_TEXT_AREA_NAME);
+        final JTextArea carOwnerTextArea = (JTextArea) namesToComponents.get(Util.CAR_OWNER_TEXT_AREA_NAME);
         final String carOwner = carOwnerTextArea.getText();
 
-        final JComboBox ownerTypeComboBox = (JComboBox) namesToComponents.get(CreateActionInputPanels.CAR_OWNER_TYPE_COMBO_BOX_NAME);
+        final JComboBox ownerTypeComboBox = (JComboBox) namesToComponents.get(Util.CAR_OWNER_TYPE_COMBO_BOX_NAME);
         final String ownerType = ownerTypeComboBox.getSelectedItem().toString();
 
-        final JComboBox parkingSlotComboBox = (JComboBox) namesToComponents.get(CreateActionInputPanels.PARKING_SLOT_COMBO_BOX_NAME);
+        final JComboBox parkingSlotComboBox = (JComboBox) namesToComponents.get(Util.PARKING_SLOT_COMBO_BOX_NAME);
         final String parkingSlotIdentifier = parkingSlotComboBox.getSelectedItem().toString();
 
         final ParkingSlot parkingSlot = this.carPark.getParkingSlots().get(parkingSlotIdentifier);
@@ -106,6 +107,7 @@ public class CarParkScreen {
         try {
             final Car carToBeParked = new Car(carRegistration, carOwner, ownerType);
             parkingSlot.parkCar(carToBeParked);
+            parkingSlotsPanel.handleAction(ACTIONS[0], parkingSlotToButton, parkingSlot);
         } catch (Exception e) {
             // handle exception appropriately.
         }
@@ -114,43 +116,29 @@ public class CarParkScreen {
     private void addButtonActionListeners() {
         this.optionsPanel.getParkCarButton().addActionListener(e -> {
             final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
-            final JPanel parkCarInputPanel = CreateActionInputPanels.createParkCarInputPanel(carPark, parkingSlotInFocus);
+            final JPanel parkCarInputPanel = Util.createParkCarInputPanel(carPark, parkingSlotInFocus);
             this.openDialogInput(parkCarInputPanel, PARK_CAR_DIALOG_HEADER, ACTIONS[0]);
         });
 
         this.optionsPanel.getFindCarButton().addActionListener(e -> {
-            final JPanel findCarInputPanel = CreateActionInputPanels.createFindCarInputPanel();
+            final JPanel findCarInputPanel = Util.createFindCarInputPanel();
             this.openDialogInput(findCarInputPanel, FIND_CAR_DIALOG_HEADER, ACTIONS[1]);
         });
 
         this.optionsPanel.getRemoveCarButton().addActionListener(e -> {
-            final JPanel removeCarInputPanel = CreateActionInputPanels.createRemoveCarInputPanel();
+            final JPanel removeCarInputPanel = Util.createRemoveCarInputPanel();
             this.openDialogInput(removeCarInputPanel, REMOVE_CAR_DIALOG_HEADER, ACTIONS[2]);
         });
 
         this.optionsPanel.getAddParkingSlotButton().addActionListener(e -> {
-            final JPanel addParkingSlotInputPanel = CreateActionInputPanels.createAddParkingSlotInputPanel();
+            final JPanel addParkingSlotInputPanel = Util.createAddParkingSlotInputPanel();
             this.openDialogInput(addParkingSlotInputPanel, ADD_PARKING_SLOT_DIALOG_HEADER, ACTIONS[3]);
         });
 
         this.optionsPanel.getDeleteParkingSlotButton().addActionListener(e -> {
-            final JPanel deleteParkingSlotInputPanel = CreateActionInputPanels.createDeleteParkingSlotInputPanel(carPark);
+            final JPanel deleteParkingSlotInputPanel = Util.createDeleteParkingSlotInputPanel(carPark);
             this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER, ACTIONS[4]);
         });
-    }
-
-    // Helper function that maps names of components to the component.
-    private HashMap<String, Component> createNamesToComponentsMap(HashMap<String, Component> namesToComponents, JPanel panel) {
-        Component[] components = panel.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            if (components[i].getClass() == JPanel.class) {
-                this.createNamesToComponentsMap(namesToComponents, (JPanel) components[i]);
-            } else if (components[i].getName() != null){
-                namesToComponents.put(components[i].getName(), components[i]);
-            }
-        }
-
-        return namesToComponents;
     }
 
     // TODO: Handle screen resizing so that we can make border layout responsive.

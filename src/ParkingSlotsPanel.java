@@ -64,11 +64,24 @@ public class ParkingSlotsPanel {
         }
     }
 
-//    public void handleAction(String action, HashMap<ParkingSlot, JButton> parkingSlotToButton, ParkingSlot parkingSlot) {
-//        switch (action) {
-//            case "park car" -> {
-//                JButton
+    public void handleAction(String action, HashMap<ParkingSlot, JButton> parkingSlotToButton, ParkingSlot parkingSlotChanged) {
+        switch (action) {
+            case "park car" -> {
+                final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
+                JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
+                parkingSlotButton.setBackground(Color.RED);
+            }
+        }
+    }
+
+//    // Get a better way to do this (maybe give names to components and then do it like that like how it was done in
+//    // createComponetsToNameMap method in CarParkScreen class.
+//    private JButton getParkingSlotButtonFromIdentifier(String identifier, HashMap<ParkingSlot, JButton> parkingSlotToButton) {
+//        for (ParkingSlot parkingSlot: parkingSlotToButton.keySet()) {
+//            if (parkingSlot.getIdentifier().equals(identifier)) {
+//                return parkingSlotToButton.get(parkingSlot);
 //            }
 //        }
+//        return null;
 //    }
 }

@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Set;
 
-public class CreateActionInputPanels {
+public class Util {
 
     private static final int NUM_ROWS_TEXT_AREA = 1;
     private static final int NUM_COLUMNS_TEXT_AREA = 5;
@@ -97,5 +98,19 @@ public class CreateActionInputPanels {
         deleteParkingSlotInputPanel.add(new JComboBox<>(parkingSlotIdentifiersArray));
 
         return deleteParkingSlotInputPanel;
+    }
+
+    // Helper function that maps names of components to the component.
+    public static HashMap<String, Component> createNamesToComponentsMap(HashMap<String, Component> namesToComponents, JPanel panel) {
+        Component[] components = panel.getComponents();
+        for (int i = 0; i < components.length; i++) {
+            if (components[i].getClass() == JPanel.class) {
+                createNamesToComponentsMap(namesToComponents, (JPanel) components[i]);
+            } else if (components[i].getName() != null){
+                namesToComponents.put(components[i].getName(), components[i]);
+            }
+        }
+
+        return namesToComponents;
     }
 }
