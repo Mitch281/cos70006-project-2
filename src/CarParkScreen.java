@@ -10,10 +10,7 @@ public class CarParkScreen {
     private static final String ADD_PARKING_SLOT_DIALOG_HEADER  = "Add Parking Slot";
     private static final String DELETE_PARKING_SLOT_DIALOG_HEADER  = "Remove Parking Slot";
 
-    private static final int NUM_ROWS_TEXT_AREA = 1;
-    private static final int NUM_COLUMNS_TEXT_AREA = 5;
-
-    private static final String[] ACTIONS = {"park car", "find car", "remove car", "add parking slot",
+    public static final String[] ACTIONS = {"park car", "find car", "remove car", "add parking slot",
             "delete parking slot"};
 
     private static final double PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER = 0.7;
@@ -78,16 +75,45 @@ public class CarParkScreen {
         }
     }
 
-    private void openDialogInput(JPanel inputPanel, String instructions, String action) {
-        final int result = JOptionPane.showConfirmDialog(null, inputPanel, instructions, JOptionPane.OK_CANCEL_OPTION);
+    private void openDialogInput(JPanel inputPanel, String header, String action) {
+        final int result = JOptionPane.showConfirmDialog(null, inputPanel, header, JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            final HashMap<String, String> inputData = new HashMap<>();
+            switch (action) {
+                case "park car" -> {
+                    this.handleParkCar(inputPanel);
+                }
+            }
+        }
+    }
+
+    private void handleParkCar(JPanel inputPanel) {
+        final HashMap<String, Component> namesToComponents = this.createNamesToComponentsMap(new HashMap<>(), inputPanel);
+
+        final JTextArea carRegistrationTextArea = (JTextArea) namesToComponents.get(CreateActionInputPanels.CAR_REG_TEXT_AREA_NAME);
+        final String carRegistration = carRegistrationTextArea.getText();
+
+        final JTextArea carOwnerTextArea = (JTextArea) namesToComponents.get(CreateActionInputPanels.CAR_OWNER_TEXT_AREA_NAME);
+        final String carOwner = carOwnerTextArea.getText();
+
+        final JComboBox ownerTypeComboBox = (JComboBox) namesToComponents.get(CreateActionInputPanels.CAR_OWNER_TYPE_COMBO_BOX_NAME);
+        final String ownerType = ownerTypeComboBox.getSelectedItem().toString();
+
+        final JComboBox parkingSlotComboBox = (JComboBox) namesToComponents.get(CreateActionInputPanels.PARKING_SLOT_COMBO_BOX_NAME);
+        final String parkingSlotIdentifier = parkingSlotComboBox.getSelectedItem().toString();
+
+        final ParkingSlot parkingSlot = this.carPark.getParkingSlots().get(parkingSlotIdentifier);
+
+        try {
+            final Car carToBeParked = new Car(carRegistration, carOwner, ownerType);
+            parkingSlot.parkCar(carToBeParked);
+        } catch (Exception e) {
+            // handle exception appropriately.
         }
     }
 
     private void addButtonActionListeners() {
         this.optionsPanel.getParkCarButton().addActionListener(e -> {
-            final JPanel parkCarInputPanel = CreateActionInputPanels.createParkCarInputPanel(carPark);
+            final JPanel parkCarInputPanel = CreateActionInputPanels.createParkCarInputPanel(carPark, this.parkingSlotInFocusID);
             this.openDialogInput(parkCarInputPanel, PARK_CAR_DIALOG_HEADER, ACTIONS[0]);
         });
 
@@ -110,6 +136,20 @@ public class CarParkScreen {
             final JPanel deleteParkingSlotInputPanel = CreateActionInputPanels.createDeleteParkingSlotInputPanel(carPark);
             this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER, ACTIONS[4]);
         });
+    }
+
+    // Helper function that maps names of components to the component.
+    private HashMap<String, Component> createNamesToComponentsMap(HashMap<String, Component> namesToComponents, JPanel panel) {
+        Component[] components = panel.getComponents();
+        for (int i = 0; i < components.length; i++) {
+            if (components[i].getClass() == JPanel.class) {
+                this.createNamesToComponentsMap(namesToComponents, (JPanel) components[i]);
+            } else if (components[i].getName() != null){
+                namesToComponents.put(components[i].getName(), components[i]);
+            }
+        }
+
+        return namesToComponents;
     }
 
     // TODO: Handle screen resizing so that we can make border layout responsive.

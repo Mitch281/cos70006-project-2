@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,6 +21,8 @@ public class ParkingSlotsPanel {
         carPark.createParkingSlots(numStaffSlots, numStudentSlots);
         for (ParkingSlot parkingSlot: carPark.getParkingSlots().values()) {
             final JButton parkingSlotButton = new JButton();
+            final String parkingSlotIdentifier = parkingSlot.getIdentifier();
+            parkingSlotButton.setName(parkingSlotIdentifier);
             parkingSlotToButton.put(parkingSlot, parkingSlotButton);
         }
     }
@@ -60,4 +63,12 @@ public class ParkingSlotsPanel {
             return Math.floorDiv(totalNumSlots, NUM_SLOTS_PER_ROW) + 1;
         }
     }
+
+//    public void handleAction(String action, HashMap<ParkingSlot, JButton> parkingSlotToButton, ParkingSlot parkingSlot) {
+//        switch (action) {
+//            case "park car" -> {
+//                JButton
+//            }
+//        }
+//    }
 }

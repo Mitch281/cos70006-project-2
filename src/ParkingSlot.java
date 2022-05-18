@@ -74,7 +74,10 @@ public class ParkingSlot {
     public void parkCar(Car car) {
         if (car.getOwnerType().equals(type)) {
             this.carParked = car;
-        } else {
+        } else if (this.isSlotOccupied()) {
+            throw new IllegalArgumentException("There is a car already parked here!");
+        }
+        else {
             throw new IllegalArgumentException("Please make sure the type of the car you are parking is the same as " +
                     "the parking slot type!");
         }
