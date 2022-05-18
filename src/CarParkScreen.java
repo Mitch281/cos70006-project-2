@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.util.*;
 
 public class CarParkScreen {
@@ -37,8 +39,20 @@ public class CarParkScreen {
 
     public void addScreenResizeListener() {
         final JFrame window = (JFrame) SwingUtilities.windowForComponent(this.optionsPanel.getOptionsPanel());
+
+        // Resize listener for when user changes size of window by dragging.
         window.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent evt) {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                parkingSlotsPanel.setParkingSlotsPanelSize(window);
+                optionsPanel.setCarParkOptionsPanelSize(window);
+            }
+        });
+
+        // Resize listener for when user maximises window.
+        window.addWindowStateListener(new WindowStateListener() {
+            @Override
+            public void windowStateChanged(WindowEvent e) {
                 parkingSlotsPanel.setParkingSlotsPanelSize(window);
                 optionsPanel.setCarParkOptionsPanelSize(window);
             }
@@ -217,6 +231,4 @@ public class CarParkScreen {
             this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER, ACTIONS[4], null);
         });
     }
-
-    // TODO: Handle screen resizing so that we can make border layout responsive.
 }
