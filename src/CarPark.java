@@ -73,12 +73,8 @@ public class CarPark {
      * @param carRegistration: The car registration of the car.
      */
     public void removeCar(String carRegistration) {
-        ParkingSlot parkingSlot = findCar(carRegistration);
-        if (parkingSlot != null) {
-            parkingSlot.unparkCar();
-        } else {
-            throw new IllegalArgumentException("The car you entered is not parked in the car park!");
-        }
+        ParkingSlot parkingSlot = this.findCar(carRegistration);
+        parkingSlot.unparkCar();
     }
 
     /**

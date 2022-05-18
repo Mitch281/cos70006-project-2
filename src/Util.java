@@ -9,6 +9,7 @@ public class Util {
     private static final int NUM_COLUMNS_TEXT_AREA = 5;
 
     public static final String CAR_REG_TEXT_AREA_NAME = "carRegistrationInput";
+    public static final String CAR_REG_LABEL_NAME = "carRegistrationLabel";
     public static final String CAR_OWNER_TEXT_AREA_NAME = "carOwnerInput";
     public static final String CAR_OWNER_TYPE_COMBO_BOX_NAME = "selectOwnerType";
     public static final String PARKING_SLOT_COMBO_BOX_NAME = "parkingSlotSelect";
@@ -70,13 +71,19 @@ public class Util {
         return findCarPanel;
     }
 
-    public static JPanel createRemoveCarInputPanel() {
+    public static JPanel createRemoveCarInputPanel(ParkingSlot parkingSlotInFocus) {
         final JPanel removeCarInputPanel = new JPanel();
-        removeCarInputPanel.add(new JLabel("Enter Car Registration: "));
-        final JTextArea carRegistrationTextArea = new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA);
-        carRegistrationTextArea.setName(CAR_REG_TEXT_AREA_NAME);
-        removeCarInputPanel.add(carRegistrationTextArea);
-
+        final Car carParkedInParkingSlot = parkingSlotInFocus.getCarParked();
+        if (carParkedInParkingSlot != null) {
+            final String carParkedInParkingSlotRego = carParkedInParkingSlot.getRegistrationNumber();
+            final String parkingSlotInFocusID = parkingSlotInFocus.getIdentifier();
+            final String labelText = String.format("Are you sure you want to remove car %s from parking slot " +
+                    "%s?", carParkedInParkingSlotRego, parkingSlotInFocusID);
+            removeCarInputPanel.add(new JLabel(labelText));
+        } else {
+            removeCarInputPanel.add(new JLabel("There is no car parked here."));
+        }
+//
         return removeCarInputPanel;
     }
 

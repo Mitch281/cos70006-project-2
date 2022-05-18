@@ -64,12 +64,18 @@ public class ParkingSlotsPanel {
         }
     }
 
-    public void handleAction(String action, HashMap<ParkingSlot, JButton> parkingSlotToButton, ParkingSlot parkingSlotChanged) {
+    public void handleAction(String action, ParkingSlot parkingSlotChanged) {
         switch (action) {
             case "park car" -> {
                 final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
                 JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
                 parkingSlotButton.setBackground(Color.RED);
+            }
+
+            case "remove car" -> {
+                final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
+                JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
+                parkingSlotButton.setBackground(Color.GREEN);
             }
         }
     }

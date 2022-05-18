@@ -10,7 +10,6 @@ public class CarParkScreen {
     private static final String ADD_PARKING_SLOT_DIALOG_HEADER  = "Add Parking Slot";
     private static final String DELETE_PARKING_SLOT_DIALOG_HEADER  = "Remove Parking Slot";
 
-    // TODO: Add action for unpark car!!!!!!
     public static final String[] ACTIONS = {"park car", "find car", "remove car", "add parking slot",
             "delete parking slot"};
 
@@ -76,7 +75,7 @@ public class CarParkScreen {
         }
     }
 
-    private void openDialogInput(JPanel inputPanel, String header, String action) {
+    private void openDialogInput(JPanel inputPanel, String header, String action, Car carParked) {
         final int result = JOptionPane.showConfirmDialog(null, inputPanel, header, JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             switch (action) {
@@ -85,6 +84,10 @@ public class CarParkScreen {
                 }
                 case "find car" -> {
                     this.handleFindCar(inputPanel);
+                }
+
+                case "remove car" -> {
+                    this.handleRemoveCar(carParked);
                 }
             }
         }
@@ -110,7 +113,7 @@ public class CarParkScreen {
         try {
             final Car carToBeParked = new Car(carRegistration, carOwner, ownerType);
             parkingSlot.parkCar(carToBeParked);
-            parkingSlotsPanel.handleAction(ACTIONS[0], parkingSlotToButton, parkingSlot);
+            parkingSlotsPanel.handleAction(ACTIONS[0], parkingSlot);
         } catch (Exception e) {
             // handle exception appropriately.
         }
@@ -134,31 +137,44 @@ public class CarParkScreen {
         }
     }
 
+    private void handleRemoveCar(Car carToRemove) {
+        // Only need to remove car if the car we passed in is not null.
+        if (carToRemove != null) {
+            final String carRegistrationToRemove = carToRemove.getRegistrationNumber();
+            carPark.removeCar(carRegistrationToRemove);
+
+            final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
+            parkingSlotsPanel.handleAction(ACTIONS[2], parkingSlotInFocus);
+        }
+    }
+
     private void addButtonActionListeners() {
         this.optionsPanel.getParkCarButton().addActionListener(e -> {
             final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
             final JPanel parkCarInputPanel = Util.createParkCarInputPanel(carPark, parkingSlotInFocus);
-            this.openDialogInput(parkCarInputPanel, PARK_CAR_DIALOG_HEADER, ACTIONS[0]);
+            this.openDialogInput(parkCarInputPanel, PARK_CAR_DIALOG_HEADER, ACTIONS[0], null);
         });
 
         this.optionsPanel.getFindCarButton().addActionListener(e -> {
             final JPanel findCarInputPanel = Util.createFindCarInputPanel();
-            this.openDialogInput(findCarInputPanel, FIND_CAR_DIALOG_HEADER, ACTIONS[1]);
+            this.openDialogInput(findCarInputPanel, FIND_CAR_DIALOG_HEADER, ACTIONS[1], null);
         });
 
         this.optionsPanel.getRemoveCarButton().addActionListener(e -> {
-            final JPanel removeCarInputPanel = Util.createRemoveCarInputPanel();
-            this.openDialogInput(removeCarInputPanel, REMOVE_CAR_DIALOG_HEADER, ACTIONS[2]);
+            final ParkingSlot parkingSlotInFocus = carPark.getParkingSlots().get(this.parkingSlotInFocusID);
+            final Car carParked = parkingSlotInFocus.getCarParked();
+            final JPanel removeCarInputPanel = Util.createRemoveCarInputPanel(parkingSlotInFocus);
+            this.openDialogInput(removeCarInputPanel, REMOVE_CAR_DIALOG_HEADER, ACTIONS[2], carParked);
         });
 
         this.optionsPanel.getAddParkingSlotButton().addActionListener(e -> {
             final JPanel addParkingSlotInputPanel = Util.createAddParkingSlotInputPanel();
-            this.openDialogInput(addParkingSlotInputPanel, ADD_PARKING_SLOT_DIALOG_HEADER, ACTIONS[3]);
+            this.openDialogInput(addParkingSlotInputPanel, ADD_PARKING_SLOT_DIALOG_HEADER, ACTIONS[3], null);
         });
 
         this.optionsPanel.getDeleteParkingSlotButton().addActionListener(e -> {
             final JPanel deleteParkingSlotInputPanel = Util.createDeleteParkingSlotInputPanel(carPark);
-            this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER, ACTIONS[4]);
+            this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER, ACTIONS[4], null);
         });
     }
 
