@@ -113,7 +113,7 @@ public class CarParkScreen {
         try {
             final Car carToBeParked = new Car(carRegistration, carOwner, ownerType);
             parkingSlot.parkCar(carToBeParked);
-            parkingSlotsPanel.handleAction(ACTIONS[0], parkingSlot);
+            parkingSlotsPanel.parkCar(parkingSlot);
         } catch (Exception e) {
             // handle exception appropriately.
         }
@@ -144,7 +144,7 @@ public class CarParkScreen {
             carPark.removeCar(carRegistrationToRemove);
 
             final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
-            parkingSlotsPanel.handleAction(ACTIONS[2], parkingSlotInFocus);
+            parkingSlotsPanel.removeCar(parkingSlotInFocus);
         }
     }
 

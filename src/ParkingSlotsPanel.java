@@ -19,7 +19,7 @@ public class ParkingSlotsPanel {
 
     private void populateParkingSlotToButton(LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, CarPark carPark, int numStaffSlots, int numStudentSlots) {
         carPark.createParkingSlots(numStaffSlots, numStudentSlots);
-        for (ParkingSlot parkingSlot: carPark.getParkingSlots().values()) {
+        for (ParkingSlot parkingSlot : carPark.getParkingSlots().values()) {
             final JButton parkingSlotButton = new JButton();
             final String parkingSlotIdentifier = parkingSlot.getIdentifier();
             parkingSlotButton.setName(parkingSlotIdentifier);
@@ -29,7 +29,7 @@ public class ParkingSlotsPanel {
 
     public void paintParkingSlots(LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, CarPark carPark, int numStaffSlots, int numStudentSlots) {
         this.populateParkingSlotToButton(parkingSlotToButton, carPark, numStaffSlots, numStudentSlots);
-        for (Map.Entry<ParkingSlot, JButton> entry: parkingSlotToButton.entrySet()) {
+        for (Map.Entry<ParkingSlot, JButton> entry : parkingSlotToButton.entrySet()) {
             final ParkingSlot parkingSlot = entry.getKey();
             final JButton parkingSlotButton = entry.getValue();
 
@@ -45,6 +45,19 @@ public class ParkingSlotsPanel {
             }
         }
     }
+
+    public void parkCar(ParkingSlot parkingSlotChanged) {
+        final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
+        JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
+        parkingSlotButton.setBackground(Color.RED);
+    }
+
+    public void removeCar(ParkingSlot parkingSlotChanged) {
+        final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
+        JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
+        parkingSlotButton.setBackground(Color.GREEN);
+    }
+
 
     // TODO: Improve how this is done!! It is very ugly atm.
     public void addParkingSlot(ParkingSlot newParkingSlot, LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, JButton newParkingSlotButton) {
@@ -72,7 +85,7 @@ public class ParkingSlotsPanel {
     public void deleteParkingSlot(String parkingSlotIdentifier) {
         final Component[] parkingSlotPanelComponents = this.parkingSlotsPanel.getComponents();
 
-        for (Component component: parkingSlotPanelComponents) {
+        for (Component component : parkingSlotPanelComponents) {
             if (component.getName().equals(parkingSlotIdentifier)) {
                 this.parkingSlotsPanel.remove(component);
                 this.parkingSlotsPanel.validate();
@@ -86,7 +99,7 @@ public class ParkingSlotsPanel {
         final int numGridRows = this.getNumRows(numStaffSlots, numStudentSlots);
         final int numGridColumns = NUM_SLOTS_PER_ROW;
         this.parkingSlotsPanel.setLayout(new GridLayout(numGridRows, numGridColumns));
-        for (JButton parkingSlotButton: parkingSlotToButton.values()) {
+        for (JButton parkingSlotButton : parkingSlotToButton.values()) {
             this.parkingSlotsPanel.add(parkingSlotButton);
         }
     }
@@ -107,20 +120,5 @@ public class ParkingSlotsPanel {
             return Math.floorDiv(totalNumSlots, NUM_SLOTS_PER_ROW) + 1;
         }
     }
-
-    public void handleAction(String action, ParkingSlot parkingSlotChanged) {
-        switch (action) {
-            case "park car" -> {
-                final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
-                JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
-                parkingSlotButton.setBackground(Color.RED);
-            }
-
-            case "remove car" -> {
-                final HashMap<String, Component> identifierToComponent = Util.createNamesToComponentsMap(new HashMap<String, Component>(), this.parkingSlotsPanel);
-                JButton parkingSlotButton = (JButton) identifierToComponent.get(parkingSlotChanged.getIdentifier());
-                parkingSlotButton.setBackground(Color.GREEN);
-            }
-        }
-    }
 }
+
