@@ -72,15 +72,7 @@ public class ParkingSlot {
      * @param car: The car to be parked in the parking slot.
      */
     public void parkCar(Car car) {
-        if (car.getOwnerType().equals(type)) {
-            this.carParked = car;
-        } else if (this.isSlotOccupied()) {
-            throw new IllegalArgumentException("There is a car already parked here!");
-        }
-        else {
-            throw new IllegalArgumentException("Please make sure the type of the car you are parking is the same as " +
-                    "the parking slot type!");
-        }
+        this.carParked = car;
     }
 
     /**

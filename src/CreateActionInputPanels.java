@@ -12,7 +12,7 @@ public class CreateActionInputPanels {
     public static final String CAR_OWNER_TYPE_COMBO_BOX_NAME = "selectOwnerType";
     public static final String PARKING_SLOT_COMBO_BOX_NAME = "parkingSlotSelect";
 
-    public static JPanel createParkCarInputPanel(CarPark carPark, String parkingSlotIdentifier) {
+    public static JPanel createParkCarInputPanel(CarPark carPark, ParkingSlot parkingSlotInFocus) {
         final JPanel carParkInputPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
 
@@ -30,14 +30,14 @@ public class CreateActionInputPanels {
 
         final JPanel ownerTypeInputPanel = new JPanel();
         ownerTypeInputPanel.add(new JLabel("Select Owner Type: "));
-        String[] ownerTypes = {"Staff", "Visitor"};
+        String[] ownerTypes = {parkingSlotInFocus.getType()};
         final JComboBox ownerTypesComboBox = new JComboBox<>(ownerTypes);
         ownerTypesComboBox.setName(CAR_OWNER_TYPE_COMBO_BOX_NAME);
         ownerTypeInputPanel.add(ownerTypesComboBox);
 
         final JPanel parkingSlotInputPanel = new JPanel();
         parkingSlotInputPanel.add(new JLabel("Select Parking Slot to Park Car in: "));
-        final String[] parkingSlotIdentifiers = {parkingSlotIdentifier};
+        final String[] parkingSlotIdentifiers = {parkingSlotInFocus.getIdentifier()};
         final JComboBox parkingSlotIDsComboBox = new JComboBox(parkingSlotIdentifiers);
         parkingSlotIDsComboBox.setName(PARKING_SLOT_COMBO_BOX_NAME);
         parkingSlotInputPanel.add(parkingSlotIDsComboBox);

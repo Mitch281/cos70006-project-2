@@ -113,7 +113,8 @@ public class CarParkScreen {
 
     private void addButtonActionListeners() {
         this.optionsPanel.getParkCarButton().addActionListener(e -> {
-            final JPanel parkCarInputPanel = CreateActionInputPanels.createParkCarInputPanel(carPark, this.parkingSlotInFocusID);
+            final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
+            final JPanel parkCarInputPanel = CreateActionInputPanels.createParkCarInputPanel(carPark, parkingSlotInFocus);
             this.openDialogInput(parkCarInputPanel, PARK_CAR_DIALOG_HEADER, ACTIONS[0]);
         });
 
