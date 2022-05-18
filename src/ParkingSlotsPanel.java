@@ -46,6 +46,27 @@ public class ParkingSlotsPanel {
         }
     }
 
+    // TODO: Improve how this is done!! It is very ugly atm.
+    // TODO: Check why new parking slot animates on screen only when we click an existing parking slot.
+    public void addParkingSlot(ParkingSlot newParkingSlot, LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, JButton newParkingSlotButton) {
+        final int currentNumParkingSlots = this.parkingSlotsPanel.getComponentCount();
+        final int xPos = this.getNumRows(currentNumParkingSlots) - 1;
+        final int yPos = currentNumParkingSlots % NUM_SLOTS_PER_ROW;
+
+        final String newParkingSlotIdentifier = newParkingSlot.getIdentifier();
+        newParkingSlotButton.setName(newParkingSlotIdentifier);
+        newParkingSlotButton.setMargin(new Insets(0, 0, 0, 0));
+        this.parkingSlotsPanel.add(newParkingSlotButton, xPos, yPos);
+        parkingSlotToButton.put(newParkingSlot, newParkingSlotButton);
+
+        final boolean isParkingSlotOccupied = newParkingSlot.isSlotOccupied();
+        if (isParkingSlotOccupied) {
+            newParkingSlotButton.setBackground(Color.RED);
+        } else {
+            newParkingSlotButton.setBackground(Color.GREEN);
+        }
+    }
+
     public void setLayout(LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, int numStaffSlots, int numStudentSlots) {
         final int numGridRows = this.getNumRows(numStaffSlots, numStudentSlots);
         final int numGridColumns = NUM_SLOTS_PER_ROW;
@@ -57,6 +78,14 @@ public class ParkingSlotsPanel {
 
     private int getNumRows(int numStaffSlots, int numStudentSlots) {
         final int totalNumSlots = numStaffSlots + numStudentSlots;
+        if (totalNumSlots % NUM_SLOTS_PER_ROW == 0) {
+            return Math.floorDiv(totalNumSlots, NUM_SLOTS_PER_ROW);
+        } else {
+            return Math.floorDiv(totalNumSlots, NUM_SLOTS_PER_ROW) + 1;
+        }
+    }
+
+    private int getNumRows(int totalNumSlots) {
         if (totalNumSlots % NUM_SLOTS_PER_ROW == 0) {
             return Math.floorDiv(totalNumSlots, NUM_SLOTS_PER_ROW);
         } else {
@@ -79,15 +108,4 @@ public class ParkingSlotsPanel {
             }
         }
     }
-
-//    // Get a better way to do this (maybe give names to components and then do it like that like how it was done in
-//    // createComponetsToNameMap method in CarParkScreen class.
-//    private JButton getParkingSlotButtonFromIdentifier(String identifier, HashMap<ParkingSlot, JButton> parkingSlotToButton) {
-//        for (ParkingSlot parkingSlot: parkingSlotToButton.keySet()) {
-//            if (parkingSlot.getIdentifier().equals(identifier)) {
-//                return parkingSlotToButton.get(parkingSlot);
-//            }
-//        }
-//        return null;
-//    }
 }

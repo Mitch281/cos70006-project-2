@@ -9,10 +9,10 @@ public class Util {
     private static final int NUM_COLUMNS_TEXT_AREA = 5;
 
     public static final String CAR_REG_TEXT_AREA_NAME = "carRegistrationInput";
-    public static final String CAR_REG_LABEL_NAME = "carRegistrationLabel";
     public static final String CAR_OWNER_TEXT_AREA_NAME = "carOwnerInput";
     public static final String CAR_OWNER_TYPE_COMBO_BOX_NAME = "selectOwnerType";
     public static final String PARKING_SLOT_COMBO_BOX_NAME = "parkingSlotSelect";
+    public static final String PARKING_SLOT_TEXT_AREA_NAME = "parkingSlotIdentifierInput";
 
     public static JPanel createParkCarInputPanel(CarPark carPark, ParkingSlot parkingSlotInFocus) {
         final JPanel carParkInputPanel = new JPanel(new GridBagLayout());
@@ -90,7 +90,9 @@ public class Util {
     public static JPanel createAddParkingSlotInputPanel() {
         final JPanel createParkingSlotInputPanel = new JPanel();
         createParkingSlotInputPanel.add(new JLabel("Parking Slot Identifier: "));
-        createParkingSlotInputPanel.add(new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA));
+        final JTextArea addParkingSlotTextArea = new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA);
+        addParkingSlotTextArea.setName(PARKING_SLOT_TEXT_AREA_NAME);
+        createParkingSlotInputPanel.add(addParkingSlotTextArea);
 
         return createParkingSlotInputPanel;
     }

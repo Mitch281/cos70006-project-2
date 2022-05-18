@@ -4,6 +4,8 @@ import java.util.*;
 
 public class CarParkScreen {
 
+    // TODO: Make Add and Remove Panel options visible all the time.
+
     private static final String PARK_CAR_DIALOG_HEADER = "Park Car";
     private static final String FIND_CAR_DIALOG_HEADER = "Find Car";
     private static final String REMOVE_CAR_DIALOG_HEADER  = "Remove Car";
@@ -52,9 +54,12 @@ public class CarParkScreen {
         for (Map.Entry<ParkingSlot, JButton> entry: parkingSlotToButton.entrySet()) {
             final ParkingSlot parkingSlot = entry.getKey();
             final JButton parkingSlotButton = entry.getValue();
-
-            parkingSlotButton.addActionListener(e -> handleParkingSlotButtonClick(parkingSlot));
+            this.addClickListenerToParkingSlot(parkingSlot, parkingSlotButton);
         }
+    }
+
+    private void addClickListenerToParkingSlot(ParkingSlot parkingSlot, JButton parkingSlotButton) {
+        parkingSlotButton.addActionListener(e -> handleParkingSlotButtonClick(parkingSlot));
     }
 
     private void handleParkingSlotButtonClick(ParkingSlot parkingSlot) {
@@ -79,16 +84,10 @@ public class CarParkScreen {
         final int result = JOptionPane.showConfirmDialog(null, inputPanel, header, JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             switch (action) {
-                case "park car" -> {
-                    this.handleParkCar(inputPanel);
-                }
-                case "find car" -> {
-                    this.handleFindCar(inputPanel);
-                }
-
-                case "remove car" -> {
-                    this.handleRemoveCar(carParked);
-                }
+                case "park car" -> this.handleParkCar(inputPanel);
+                case "find car" -> this.handleFindCar(inputPanel);
+                case "remove car" -> this.handleRemoveCar(carParked);
+                case "add parking slot" -> this.handleAddParkingSlot(inputPanel);
             }
         }
     }
@@ -145,6 +144,23 @@ public class CarParkScreen {
 
             final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
             parkingSlotsPanel.handleAction(ACTIONS[2], parkingSlotInFocus);
+        }
+    }
+
+    private void handleAddParkingSlot(JPanel inputPanel) {
+        final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
+
+        final JTextArea parkingSlotIDTextArea = (JTextArea) namesToComponents.get(Util.PARKING_SLOT_TEXT_AREA_NAME);
+        final String parkingSlotIDEntered = parkingSlotIDTextArea.getText();
+
+        try {
+            carPark.addParkingSlot(parkingSlotIDEntered);
+            ParkingSlot parkingSlotJustAdded = carPark.getParkingSlots().get(parkingSlotIDEntered);
+            final JButton parkingSlotAddedButton = new JButton(parkingSlotIDEntered);
+            parkingSlotsPanel.addParkingSlot(parkingSlotJustAdded, this.parkingSlotToButton, parkingSlotAddedButton);
+            this.addClickListenerToParkingSlot(parkingSlotJustAdded, parkingSlotAddedButton);
+        } catch (Exception e) {
+            // Catch error appropriately.
         }
     }
 
