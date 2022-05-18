@@ -131,16 +131,7 @@ public class CarPark {
      * @param parkingSlotToDeleteIdentifier: The identifier of the parking slot to be deleted.
      * @throws NoSuchFieldException: Thrown if we cannot find the parking slot to be deleted in the car park.
      */
-    public void deleteParkingSlot(String parkingSlotToDeleteIdentifier) throws NoSuchFieldException {
-        ParkingSlot parkingSlotToDelete = this.findParkingSlot(parkingSlotToDeleteIdentifier);
-        if (parkingSlotToDelete == null) {
-            throw new NoSuchFieldException("The parking slot you tried to delete does not exist in this " +
-                    "car park!");
-        }
-        if (parkingSlotToDelete.getCarParked() != null) {
-            throw new IllegalArgumentException("There is a car parked here! You cannot delete this parking slot " +
-                    "without un-parking the car!");
-        }
+    public void deleteParkingSlot(String parkingSlotToDeleteIdentifier) {
         this.parkingSlots.remove(parkingSlotToDeleteIdentifier);
     }
 }

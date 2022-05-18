@@ -88,6 +88,7 @@ public class CarParkScreen {
                 case "find car" -> this.handleFindCar(inputPanel);
                 case "remove car" -> this.handleRemoveCar(carParked);
                 case "add parking slot" -> this.handleAddParkingSlot(inputPanel);
+                case "delete parking slot" -> this.handleDeleteParkingSlot(inputPanel);
             }
         }
     }
@@ -157,11 +158,22 @@ public class CarParkScreen {
             carPark.addParkingSlot(parkingSlotIDEntered);
             ParkingSlot parkingSlotJustAdded = carPark.getParkingSlots().get(parkingSlotIDEntered);
             final JButton parkingSlotAddedButton = new JButton(parkingSlotIDEntered);
+            parkingSlotAddedButton.setName(parkingSlotIDEntered);
             parkingSlotsPanel.addParkingSlot(parkingSlotJustAdded, this.parkingSlotToButton, parkingSlotAddedButton);
             this.addClickListenerToParkingSlot(parkingSlotJustAdded, parkingSlotAddedButton);
         } catch (Exception e) {
             // Catch error appropriately.
         }
+    }
+
+    private void handleDeleteParkingSlot(JPanel inputPanel) {
+        final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
+
+        final JComboBox parkingSlotIdentifiersComboBox = (JComboBox) namesToComponents.get(Util.PARKING_SLOT_COMBO_BOX_NAME);
+        final String parkingSlotToDeleteIdentifier = parkingSlotIdentifiersComboBox.getSelectedItem().toString();
+
+        carPark.deleteParkingSlot(parkingSlotToDeleteIdentifier);
+        this.parkingSlotsPanel.deleteParkingSlot(parkingSlotToDeleteIdentifier);
     }
 
     private void addButtonActionListeners() {

@@ -47,7 +47,6 @@ public class ParkingSlotsPanel {
     }
 
     // TODO: Improve how this is done!! It is very ugly atm.
-    // TODO: Check why new parking slot animates on screen only when we click an existing parking slot.
     public void addParkingSlot(ParkingSlot newParkingSlot, LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, JButton newParkingSlotButton) {
         final int currentNumParkingSlots = this.parkingSlotsPanel.getComponentCount();
         final int xPos = this.getNumRows(currentNumParkingSlots) - 1;
@@ -64,6 +63,22 @@ public class ParkingSlotsPanel {
             newParkingSlotButton.setBackground(Color.RED);
         } else {
             newParkingSlotButton.setBackground(Color.GREEN);
+        }
+
+        this.parkingSlotsPanel.validate();
+        this.parkingSlotsPanel.repaint();
+    }
+
+    public void deleteParkingSlot(String parkingSlotIdentifier) {
+        final Component[] parkingSlotPanelComponents = this.parkingSlotsPanel.getComponents();
+
+        for (Component component: parkingSlotPanelComponents) {
+            if (component.getName().equals(parkingSlotIdentifier)) {
+                this.parkingSlotsPanel.remove(component);
+                this.parkingSlotsPanel.validate();
+                this.parkingSlotsPanel.repaint();
+                return;
+            }
         }
     }
 

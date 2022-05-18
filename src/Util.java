@@ -109,7 +109,10 @@ public class Util {
         }
 
         deleteParkingSlotInputPanel.add(new JLabel("Select Parking Slot to Remove"));
-        deleteParkingSlotInputPanel.add(new JComboBox<>(parkingSlotIdentifiersArray));
+
+        final JComboBox parkingSlotIdentifiersComboBox = new JComboBox(parkingSlotIdentifiersArray);
+        parkingSlotIdentifiersComboBox.setName(PARKING_SLOT_COMBO_BOX_NAME);
+        deleteParkingSlotInputPanel.add(parkingSlotIdentifiersComboBox);
 
         return deleteParkingSlotInputPanel;
     }
