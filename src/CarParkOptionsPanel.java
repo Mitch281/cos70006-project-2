@@ -117,7 +117,7 @@ public class CarParkOptionsPanel {
             final String carOwner = carParked.getOwner();
             final String carOwnerType = carParked.getOwnerType();
             final String output = String.format("%s is parked here. This car is owned by the %s named %s.",
-                    carParkedRegistration, carOwner, carOwnerType);
+                    carParkedRegistration, carOwnerType, carOwner);
             this.carParkedInSlotLabel.setText(output);
         }
     }
