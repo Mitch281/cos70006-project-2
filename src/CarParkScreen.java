@@ -29,12 +29,19 @@ public class CarParkScreen {
 
     private String parkingSlotInFocusID = "";
 
+    /**
+     * Create an instance of the CarParkScreen class. Also set the layout of the car park panel and add the
+     * parking slot and options panels to the car park panel.
+     */
     public CarParkScreen() {
         this.carParkPanel.setLayout(new BorderLayout());
         this.carParkPanel.add(this.parkingSlotsPanel.getParkingSlotsPanel(), BorderLayout.LINE_START);
         this.carParkPanel.add(this.optionsPanel.getOptionsPanel(), BorderLayout.LINE_END);
     }
 
+    /**
+     * Create a listener to resize the parking slot and options panels when the screen is resized by the user.
+     */
     public void addScreenResizeListener() {
         final JFrame window = (JFrame) SwingUtilities.windowForComponent(this.optionsPanel.getOptionsPanel());
 
@@ -54,23 +61,39 @@ public class CarParkScreen {
         });
     }
 
+    /**
+     * Get car park panel.
+     * @return car park panel.
+     */
     public JPanel getCarParkPanel() {
         return carParkPanel;
     }
 
+    /**
+     * Paint parking slot buttons onto parking slots panel. Also add action listeners to parking slots to detect
+     * clicks.
+     * @param numStaffSlots: The number of staff slots the user entered.
+     * @param numStudentSlots: The number of student slots the user entered.
+     */
     public void paintParkingSlots(int numStaffSlots, int numStudentSlots) {
         this.parkingSlotsPanel.paintParkingSlots(this.parkingSlotToButton, this.carPark, numStaffSlots, numStudentSlots);
         this.parkingSlotsPanel.setLayout(this.parkingSlotToButton, numStaffSlots, numStudentSlots);
         this.addClickListenersToParkingSlots();
     }
 
-    // This is for the initial painting of the options panel.
-    public void paintOptionsPanel() {
+    /**
+     * Paint the options panel. This is for the initial painting. Also adds action listeners to the buttons in
+     * the options panel.
+     */
+    public void initialPaintOptionsPanel() {
         this.optionsPanel.paintOptionsPanelHeader();
         this.optionsPanel.paintParkingSlotOptions();
         this.addButtonActionListeners();
     }
 
+    /**
+     * Add action listeners to every parking slot JButton.
+     */
     private void addClickListenersToParkingSlots() {
         for (Map.Entry<ParkingSlot, JButton> entry: parkingSlotToButton.entrySet()) {
             final ParkingSlot parkingSlot = entry.getKey();
@@ -79,10 +102,19 @@ public class CarParkScreen {
         }
     }
 
+    /**
+     * Add an action listener to a specified parking slot JButton.
+     * @param parkingSlot: The parking slot corresponding to the JButton.
+     * @param parkingSlotButton: The JButton to add the action listener to.
+     */
     private void addClickListenerToParkingSlot(ParkingSlot parkingSlot, JButton parkingSlotButton) {
         parkingSlotButton.addActionListener(e -> handleParkingSlotButtonClick(parkingSlot));
     }
 
+    /**
+     * Paints or unpaints options panel when parking slot JButton is clicked.
+     * @param parkingSlot: Parking slot clicked of which its painted is rendered on the options panel.
+     */
     private void handleParkingSlotButtonClick(ParkingSlot parkingSlot) {
         boolean isParkingSlotInFocus = true;
         final String parkingSlotIdentifier = parkingSlot.getIdentifier();
@@ -101,6 +133,14 @@ public class CarParkScreen {
         }
     }
 
+    /**
+     * Opens dialog based on buttons in options panel user has clicked. Also attaches relevant handler functions
+     * once user confirms dialog.
+     * @param inputPanel: The panel contained inside the dialog.
+     * @param header: The title of the dialog.
+     * @param action: The desired action the user wants to carry out.
+     * @param carParked: The car parked in the parking slot that is currently in focus.
+     */
     private void openDialogInput(JPanel inputPanel, String header, String action, Car carParked) {
         final int result = JOptionPane.showConfirmDialog(null, inputPanel, header, JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
@@ -114,6 +154,10 @@ public class CarParkScreen {
         }
     }
 
+    /**
+     * Parks a car given the information entered by user in the dialog.
+     * @param inputPanel: The panel contained inside the dialog containing the use input.
+     */
     private void handleParkCar(JPanel inputPanel) {
         final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
 
@@ -140,6 +184,10 @@ public class CarParkScreen {
         }
     }
 
+    /**
+     * Finds a car given the information entered by the user in the dialog.
+     * @param inputPanel: The panel contained inside the dialog containing the user input.
+     */
     private void handleFindCar(JPanel inputPanel) {
         final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
 
@@ -158,6 +206,10 @@ public class CarParkScreen {
         }
     }
 
+    /**
+     * Removes a car from a parking slot if a car is parked there. Otherwise, it does nothing.
+     * @param carToRemove: The car to be removed from the parking slot (if it exists).
+     */
     private void handleRemoveCar(Car carToRemove) {
         // Only need to remove car if the car we passed in is not null.
         if (carToRemove != null) {
@@ -169,6 +221,10 @@ public class CarParkScreen {
         }
     }
 
+    /**
+     * Adds a parking slot based on the information entered by the user into the dialog.
+     * @param inputPanel: The panel contained in the dialog containing the user input.
+     */
     private void handleAddParkingSlot(JPanel inputPanel) {
         final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
 
@@ -187,6 +243,10 @@ public class CarParkScreen {
         }
     }
 
+    /**
+     * Deletes a parking slot based on the information entered by the user into the dialog.
+     * @param inputPanel: The panel contained in the dialog containing the user input.
+     */
     private void handleDeleteParkingSlot(JPanel inputPanel) {
         final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
 
@@ -197,6 +257,10 @@ public class CarParkScreen {
         this.parkingSlotsPanel.deleteParkingSlot(parkingSlotToDeleteIdentifier);
     }
 
+    /**
+     * Adds action listeners to the buttons in the option panel to open the relevant dialogs when the buttons
+     * are clicked.
+     */
     private void addButtonActionListeners() {
         this.optionsPanel.getParkCarButton().addActionListener(e -> {
             final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);

@@ -58,7 +58,7 @@ public class Screen {
                 changePanel();
                 this.carParkScreen.addScreenResizeListener();
                 this.carParkScreen.paintParkingSlots(numStaffSlots, numStudentSlots);
-                this.carParkScreen.paintOptionsPanel();
+                this.carParkScreen.initialPaintOptionsPanel();
             }
         } catch (NumberFormatException exception) {
             this.numSlotsInputScreen.getErrorMessage().setText("Please enter positive numbers for the " +

@@ -15,6 +15,10 @@ public class CarParkOptionsPanel {
     private final JButton addParkingSlotButton = new JButton("Add Parking Slot");
     private final JButton deleteParkingSlotButton = new JButton("Delete Parking Slot");
 
+    /**
+     * Creates an instance of the CarParkOptionsPanel class. Also sets grid bag constraints anchor to north,
+     * grid bag constraints weight y to 1 and sets the size of the options panel.
+     */
     public CarParkOptionsPanel() {
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.weighty = 1;
@@ -24,6 +28,10 @@ public class CarParkOptionsPanel {
         this.optionsPanel.setPreferredSize(new Dimension(widthInt, Screen.HEIGHT));
     }
 
+    /**
+     * Resizes the options panel based on the current size of the JFrame.
+     * @param window: The JFrame used to calculate the size of the options panel.
+     */
     public void setCarParkOptionsPanelSize(JFrame window) {
         final int currentFrameWidth = window.getWidth();
         final int currentFrameHeight = window.getWidth();
@@ -32,30 +40,58 @@ public class CarParkOptionsPanel {
         this.optionsPanel.setPreferredSize(new Dimension(newPanelWidthInt, currentFrameHeight));
     }
 
+    /**
+     * Gets the options panel.
+     * @return options panel.
+     */
     public JPanel getOptionsPanel() {
         return optionsPanel;
     }
 
+    /**
+     * Gets the option button to park a car.
+     * @return the option button to park a car.
+     */
     public JButton getParkCarButton() {
         return parkCarButton;
     }
 
+    /**
+     * Gets the option button to find a car.
+     * @return the option button to find a car.
+     */
     public JButton getFindCarButton() {
         return findCarButton;
     }
 
+    /**
+     * Gets the option button to remove a car.
+     * @return the option button to remove a car.
+     */
     public JButton getRemoveCarButton() {
         return removeCarButton;
     }
 
+    /**
+     * Gets the option button to add a parking slot to the car park.
+     * @return the option button to add a parking slot to the car park.
+     */
     public JButton getAddParkingSlotButton() {
         return addParkingSlotButton;
     }
 
+    /**
+     * Gets the option button to delete a parking slot from the car park.
+     * @return the option button to delete a parking slot from the car park.
+     */
     public JButton getDeleteParkingSlotButton() {
         return deleteParkingSlotButton;
     }
 
+    /**
+     * Creates and paints the title of the options header.
+     * This is only called once when the options panel is initially painted.
+     */
     public void paintOptionsPanelHeader() {
         final JLabel optionsHeader = new JLabel("Options");
         optionsHeader.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, Constants.OPTIONS_HEADER_FONT_SIZE));
@@ -64,7 +100,11 @@ public class CarParkOptionsPanel {
         this.optionsPanel.add(optionsHeader, gbc);
     }
 
-    // This is needed to paint the options panel the first time. We also add action listeners to open dialogs here.
+
+    /**
+     * Creates and paints the buttons used to carry out functionality in the options panel.
+     * This is only called once when the options panel is initially painted.
+     */
     public void paintParkingSlotOptions() {
         this.paintParkingSlotID();
         this.paintCarParkedInSlot();
@@ -86,7 +126,10 @@ public class CarParkOptionsPanel {
         this.paintButton(this.deleteParkingSlotButton, gridyForButtons);
     }
 
-    // This is needed to repaint the options panel (after paint has been called which adds necessary components to panel).
+    /**
+     * Repaint the options panel content.
+     * @param parkingSlotInFocus: The parking slot we use to paint the relevant details onto the option panel.
+     */
     public void repaintParkingSlotOptions(ParkingSlot parkingSlotInFocus) {
         this.parkingSlotIDLabel.setText(parkingSlotInFocus.getIdentifier());
         this.changeCarParkedInSlotLabel(parkingSlotInFocus);
@@ -97,6 +140,12 @@ public class CarParkOptionsPanel {
         this.deleteParkingSlotButton.setVisible(true);
     }
 
+    /**
+     * This changes the message telling the user which car is parked in a parking slot depending on the parking slot
+     * the user is currently focusing on. If no car is parked in the parking slot, it will display a corresponding
+     * message saying so.
+     * @param parkingSlotInFocus: The parking slot the user is currently focusing on.
+     */
     private void changeCarParkedInSlotLabel(ParkingSlot parkingSlotInFocus) {
         Car carParked;
         if (parkingSlotInFocus.getCarParked() == null) {
@@ -112,6 +161,9 @@ public class CarParkOptionsPanel {
         }
     }
 
+    /**
+     * Unpaint the relevant information in the options panel. This is called when a user un-focuses a parking slot.
+     */
     public void unpaintParkingSlotOptions() {
         this.parkingSlotIDLabel.setText("");
         this.carParkedInSlotLabel.setText("");
@@ -122,18 +174,29 @@ public class CarParkOptionsPanel {
         this.deleteParkingSlotButton.setVisible(false);
     }
 
+    /**
+     * Add empty parking slot ID label to parking slot panel.
+     */
     private void paintParkingSlotID() {
         this.gbc.gridx = 0;
         this.gbc.gridy = 1;
         this.optionsPanel.add(this.parkingSlotIDLabel, this.gbc);
     }
 
+    /**
+     * Add empty label representing car parked in slot to options panel.
+     */
     private void paintCarParkedInSlot() {
         this.gbc.gridx = 0;
         this.gbc.gridy = 2;
         this.optionsPanel.add(this.carParkedInSlotLabel, this.gbc);
     }
 
+    /**
+     * Adds a button to the options panel with a specified y position. The button defaults to no visibility.
+     * @param button: The button to be painted onto the options panel.
+     * @param gridy: The y value used for the grid bag constraints.
+     */
     private void paintButton(JButton button, int gridy) {
         button.setVisible(false);
         this.gbc.gridx = 0;
