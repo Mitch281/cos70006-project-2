@@ -62,7 +62,10 @@ public class Util {
     public static JPanel createFindCarInputPanel() {
         final JPanel findCarPanel = new JPanel();
         findCarPanel.add(new JLabel("Enter Car Registration: "));
-        findCarPanel.add(new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA));
+        final JTextArea carRegistrationTextArea = new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA);
+        carRegistrationTextArea.setName(CAR_REG_TEXT_AREA_NAME);
+        findCarPanel.add(carRegistrationTextArea);
+        findCarPanel.add(carRegistrationTextArea);
 
         return findCarPanel;
     }
@@ -70,7 +73,9 @@ public class Util {
     public static JPanel createRemoveCarInputPanel() {
         final JPanel removeCarInputPanel = new JPanel();
         removeCarInputPanel.add(new JLabel("Enter Car Registration: "));
-        removeCarInputPanel.add(new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA));
+        final JTextArea carRegistrationTextArea = new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA);
+        carRegistrationTextArea.setName(CAR_REG_TEXT_AREA_NAME);
+        removeCarInputPanel.add(carRegistrationTextArea);
 
         return removeCarInputPanel;
     }
@@ -102,12 +107,12 @@ public class Util {
 
     // Helper function that maps names of components to the component.
     public static HashMap<String, Component> createNamesToComponentsMap(HashMap<String, Component> namesToComponents, JPanel panel) {
-        Component[] components = panel.getComponents();
-        for (int i = 0; i < components.length; i++) {
-            if (components[i].getClass() == JPanel.class) {
-                createNamesToComponentsMap(namesToComponents, (JPanel) components[i]);
-            } else if (components[i].getName() != null){
-                namesToComponents.put(components[i].getName(), components[i]);
+        Component[] components = panel.getComponents();;
+        for (Component component : components) {
+            if (component.getClass() == JPanel.class) {
+                createNamesToComponentsMap(namesToComponents, (JPanel) component);
+            } else if (component.getName() != null) {
+                namesToComponents.put(component.getName(), component);
             }
         }
 

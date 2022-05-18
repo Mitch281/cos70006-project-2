@@ -83,6 +83,9 @@ public class CarParkScreen {
                 case "park car" -> {
                     this.handleParkCar(inputPanel);
                 }
+                case "find car" -> {
+                    this.handleFindCar(inputPanel);
+                }
             }
         }
     }
@@ -110,6 +113,24 @@ public class CarParkScreen {
             parkingSlotsPanel.handleAction(ACTIONS[0], parkingSlotToButton, parkingSlot);
         } catch (Exception e) {
             // handle exception appropriately.
+        }
+    }
+
+    private void handleFindCar(JPanel inputPanel) {
+        final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
+
+        final JTextArea carRegistrationTextArea = (JTextArea) namesToComponents.get(Util.CAR_REG_TEXT_AREA_NAME);
+        final String carRegistration = carRegistrationTextArea.getText();
+
+        // Only find the car if a user has entered a car registration.
+        if (carRegistration != null) {
+            ParkingSlot parkingSlotCarIsParkedIn = carPark.findCar(carRegistration);
+            if (parkingSlotCarIsParkedIn != null) {
+                System.out.println(parkingSlotCarIsParkedIn.getIdentifier());
+                // Popup saying where car is.
+            } else {
+                // Pop up saying car not found.
+            }
         }
     }
 
