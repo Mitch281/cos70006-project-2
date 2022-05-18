@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,7 +12,16 @@ public class ParkingSlotsPanel {
     private final JPanel parkingSlotsPanel = new JPanel();
 
     public ParkingSlotsPanel() {
-        this.parkingSlotsPanel.setPreferredSize(new Dimension(600, 500));
+        this.parkingSlotsPanel.setPreferredSize(new Dimension(600, Screen.HEIGHT));
+    }
+
+    // Change width of parking slot panel whenever window is resized.
+    public void setParkingSlotsPanelSize(JFrame window) {
+        final int currentFrameWidth = window.getWidth();
+        final int currentFrameHeight = window.getHeight();
+        final Double newPanelWidth = (Double) CarParkScreen.PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER * currentFrameWidth;
+        final int newPanelWidthInt = newPanelWidth.intValue();
+        this.parkingSlotsPanel.setPreferredSize(new Dimension(newPanelWidthInt, currentFrameHeight));
     }
 
     public JPanel getParkingSlotsPanel() {

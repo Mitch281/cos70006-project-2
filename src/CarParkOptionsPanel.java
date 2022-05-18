@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class CarParkOptionsPanel {
 
@@ -19,6 +21,14 @@ public class CarParkOptionsPanel {
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.weighty = 1;
         this.optionsPanel.setPreferredSize(new Dimension(200, 500));
+    }
+
+    public void setCarParkOptionsPanelSize(JFrame window) {
+        final int currentFrameWidth = window.getWidth();
+        final int currentFrameHeight = window.getWidth();
+        final Double newPanelWidth = (Double) CarParkScreen.OPTIONS_PANEL_WIDTH_MULTIPLIER * currentFrameWidth;
+        final int newPanelWidthInt = newPanelWidth.intValue();
+        this.optionsPanel.setPreferredSize(new Dimension(newPanelWidthInt, currentFrameHeight));
     }
 
     public JPanel getOptionsPanel() {

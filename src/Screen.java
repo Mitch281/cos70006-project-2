@@ -25,7 +25,7 @@ public class Screen {
         this.contentPanel.add(numSlotsInputScreen.getInputPanel(), "1");
         this.contentPanel.add(carParkScreen.getCarParkPanel(), "2");
         this.cardLayout.show(this.contentPanel, String.valueOf(cardNumber));
-        window.setVisible(true);
+        this.window.setVisible(true);
     }
 
     private void runSlotInputScreen() {
@@ -46,8 +46,8 @@ public class Screen {
         String studentSlotsInput = this.numSlotsInputScreen.getNumStudentSlotsField().getText();
 
         try {
-            Integer numStaffSlots = Integer.parseInt(staffSlotsInput);
-            Integer numStudentSlots = Integer.parseInt(studentSlotsInput);
+            int numStaffSlots = Integer.parseInt(staffSlotsInput);
+            int numStudentSlots = Integer.parseInt(studentSlotsInput);
             if (numStaffSlots + numStudentSlots > CarPark.MAX_NUMBER_PARKING_SLOTS) {
                 this.numSlotsInputScreen.getErrorMessage().setText("You cannot enter more than 999 " +
                         "total slots!");
@@ -58,6 +58,7 @@ public class Screen {
             } else {
                 // User has successfully entered the right amount of slots.
                 changePanel();
+                this.carParkScreen.addScreenResizeListener();
                 this.carParkScreen.paintParkingSlots(numStaffSlots, numStudentSlots);
                 this.carParkScreen.paintOptionsPanel();
             }

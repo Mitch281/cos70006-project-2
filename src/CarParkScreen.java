@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.*;
 
 public class CarParkScreen {
@@ -15,8 +17,8 @@ public class CarParkScreen {
     public static final String[] ACTIONS = {"park car", "find car", "remove car", "add parking slot",
             "delete parking slot"};
 
-    private static final double PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER = 0.7;
-    private static final double OPTIONS_PANEL_WIDTH_MULTIPLIER = 1 - PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER;
+    public static final double PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER = 0.7;
+    public static final double OPTIONS_PANEL_WIDTH_MULTIPLIER = 1 - PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER;
 
     private final JPanel carParkPanel = new JPanel();
     private final ParkingSlotsPanel parkingSlotsPanel = new ParkingSlotsPanel();
@@ -31,6 +33,16 @@ public class CarParkScreen {
         this.carParkPanel.setLayout(new BorderLayout());
         this.carParkPanel.add(this.parkingSlotsPanel.getParkingSlotsPanel(), BorderLayout.LINE_START);
         this.carParkPanel.add(this.optionsPanel.getOptionsPanel(), BorderLayout.LINE_END);
+    }
+
+    public void addScreenResizeListener() {
+        final JFrame window = (JFrame) SwingUtilities.windowForComponent(this.optionsPanel.getOptionsPanel());
+        window.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
+                parkingSlotsPanel.setParkingSlotsPanelSize(window);
+                optionsPanel.setCarParkOptionsPanelSize(window);
+            }
+        });
     }
 
     public JPanel getCarParkPanel() {
@@ -207,5 +219,4 @@ public class CarParkScreen {
     }
 
     // TODO: Handle screen resizing so that we can make border layout responsive.
-
 }
