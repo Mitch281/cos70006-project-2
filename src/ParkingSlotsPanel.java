@@ -12,15 +12,17 @@ public class ParkingSlotsPanel {
     private final JPanel parkingSlotsPanel = new JPanel();
 
     public ParkingSlotsPanel() {
-        this.parkingSlotsPanel.setPreferredSize(new Dimension(600, Screen.HEIGHT));
+        final double width = Screen.WIDTH * CarParkScreen.PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER;
+        final int widthInt = (int) width;
+        this.parkingSlotsPanel.setPreferredSize(new Dimension(widthInt, Screen.HEIGHT));
     }
 
     // Change width of parking slot panel whenever window is resized.
     public void setParkingSlotsPanelSize(JFrame window) {
         final int currentFrameWidth = window.getWidth();
         final int currentFrameHeight = window.getHeight();
-        final Double newPanelWidth = (Double) CarParkScreen.PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER * currentFrameWidth;
-        final int newPanelWidthInt = newPanelWidth.intValue();
+        final double newPanelWidth = (Double) CarParkScreen.PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER * currentFrameWidth;
+        final int newPanelWidthInt = (int) newPanelWidth;
         this.parkingSlotsPanel.setPreferredSize(new Dimension(newPanelWidthInt, currentFrameHeight));
     }
 

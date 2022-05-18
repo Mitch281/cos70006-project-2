@@ -20,14 +20,17 @@ public class CarParkOptionsPanel {
     public CarParkOptionsPanel() {
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.weighty = 1;
-        this.optionsPanel.setPreferredSize(new Dimension(200, 500));
+
+        final double width = CarParkScreen.OPTIONS_PANEL_WIDTH_MULTIPLIER * Screen.WIDTH;
+        final int widthInt = (int) width;
+        this.optionsPanel.setPreferredSize(new Dimension(widthInt, Screen.HEIGHT));
     }
 
     public void setCarParkOptionsPanelSize(JFrame window) {
         final int currentFrameWidth = window.getWidth();
         final int currentFrameHeight = window.getWidth();
-        final Double newPanelWidth = (Double) CarParkScreen.OPTIONS_PANEL_WIDTH_MULTIPLIER * currentFrameWidth;
-        final int newPanelWidthInt = newPanelWidth.intValue();
+        final double newPanelWidth = (Double) CarParkScreen.OPTIONS_PANEL_WIDTH_MULTIPLIER * currentFrameWidth;
+        final int newPanelWidthInt = (int) newPanelWidth;
         this.optionsPanel.setPreferredSize(new Dimension(newPanelWidthInt, currentFrameHeight));
     }
 

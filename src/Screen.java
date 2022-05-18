@@ -12,7 +12,7 @@ public class Screen {
     private final JPanel contentPanel = new JPanel(cardLayout);
 
     private final NumSlotsInputScreen numSlotsInputScreen = new NumSlotsInputScreen();
-    private CarParkScreen carParkScreen = new CarParkScreen();
+    private final CarParkScreen carParkScreen = new CarParkScreen();
 
     public Screen() {
         this.window.setSize(WIDTH, HEIGHT);
@@ -33,9 +33,7 @@ public class Screen {
         this.numSlotsInputScreen.getNumStudentSlotsField().setPreferredSize(new Dimension(100, 30));
 
         // Action listener on button to start program.
-        this.numSlotsInputScreen.getSubmitSlotNumbersButton().addActionListener(e -> {
-            getSlotNumbersInput();
-        });
+        this.numSlotsInputScreen.getSubmitSlotNumbersButton().addActionListener(e -> getSlotNumbersInput());
 
         this.cardLayout.show(this.contentPanel, String.valueOf(cardNumber));
         this.window.getContentPane().add(contentPanel);
