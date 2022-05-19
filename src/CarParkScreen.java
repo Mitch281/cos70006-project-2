@@ -209,10 +209,10 @@ public class CarParkScreen {
         if (carRegistration != null) {
             ParkingSlot parkingSlotCarIsParkedIn = carPark.findCar(carRegistration);
             if (parkingSlotCarIsParkedIn != null) {
-                System.out.println(parkingSlotCarIsParkedIn.getIdentifier());
-                // Popup saying where car is.
+                String parkingSlotIdCarIsParkedIn = parkingSlotCarIsParkedIn.getIdentifier();
+                Util.openCarFoundDialog(carRegistration, parkingSlotIdCarIsParkedIn);
             } else {
-                // Pop up saying car not found.
+                Util.openCarFoundDialog(carRegistration, null);
             }
         }
     }

@@ -118,4 +118,14 @@ public class Util {
 
         return namesToComponents;
     }
+
+    public static void openCarFoundDialog(String carRegoToBeFound, String parkingSlotIdCarFoundIn) {
+        final String failMessage = "Car not found.";
+        final String successMessage = String.format("The car %s was found in %s", carRegoToBeFound, parkingSlotIdCarFoundIn);
+        if (parkingSlotIdCarFoundIn == null) {
+            JOptionPane.showMessageDialog(new JFrame(), failMessage);
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), successMessage);
+        }
+    }
 }
