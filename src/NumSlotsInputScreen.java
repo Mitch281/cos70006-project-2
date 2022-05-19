@@ -7,8 +7,13 @@ public class NumSlotsInputScreen {
 
     private final JLabel instructions = new JLabel("Please enter the number of staff and student parking slots" +
             " you want to create.");
+
+    private final JLabel numStaffSlotsLabel = new JLabel("Number of staff slots: ");
     private final JTextField numStaffSlotsField = new JTextField();
+
+    private final JLabel numStudentSlotsLabel = new JLabel("Number of student slots: ");
     private final JTextField numStudentSlotsField = new JTextField();
+
     private final JButton submitSlotNumbersButton = new JButton("Start");
     private final GridBagLayout gridBagLayout = new GridBagLayout();
     private final GridBagConstraints gbc = new GridBagConstraints();
@@ -52,13 +57,19 @@ public class NumSlotsInputScreen {
         this.gbc.gridy = 0;
         this.inputPanel.add(this.instructions, this.gbc);
 
+        final JPanel numStaffSlotsPanel = new JPanel();
+        numStaffSlotsPanel.add(this.numStaffSlotsLabel);
+        numStaffSlotsPanel.add(this.numStaffSlotsField);
         this.gbc.gridx = 0;
         this.gbc.gridy = 1;
-        this.inputPanel.add(this.numStaffSlotsField, this.gbc);
+        this.inputPanel.add(numStaffSlotsPanel, this.gbc);
 
+        final JPanel numStudentSlotsPanel = new JPanel();
+        numStudentSlotsPanel.add(this.numStudentSlotsLabel);
+        numStudentSlotsPanel.add(this.numStudentSlotsField);
         this.gbc.gridx = 0;
         this.gbc.gridy = 2;
-        this.inputPanel.add(this.numStudentSlotsField, this.gbc);
+        this.inputPanel.add(numStudentSlotsPanel, this.gbc);
 
         this.gbc.gridx = 0;
         this.gbc.gridy = 3;
