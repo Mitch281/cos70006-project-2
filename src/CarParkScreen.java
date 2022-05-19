@@ -260,6 +260,8 @@ public class CarParkScreen {
     private void handleDeleteParkingSlot() {
         carPark.deleteParkingSlot(this.parkingSlotInFocusID);
         this.parkingSlotsPanel.deleteParkingSlot(this.parkingSlotInFocusID);
+        this.parkingSlotInFocusID = "";
+        this.optionsPanel.unpaintParkingSlotOptions();
     }
 
     /**
