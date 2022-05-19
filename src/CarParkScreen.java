@@ -112,22 +112,33 @@ public class CarParkScreen {
     }
 
     /**
-     * Paints or unpaints options panel when parking slot JButton is clicked.
-     * @param parkingSlot: Parking slot clicked of which its painted is rendered on the options panel.
+     * // TODO: Add relevant description here.
+     * @param parkingSlotClicked: The parking slot clicked.
      */
-    private void handleParkingSlotButtonClick(ParkingSlot parkingSlot) {
-        boolean isParkingSlotInFocus = true;
-        final String parkingSlotIdentifier = parkingSlot.getIdentifier();
-        final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(parkingSlotIdentifier);
-        if (parkingSlotIdentifier.equals(this.parkingSlotInFocusID)) {
-            isParkingSlotInFocus = false;
-            this.parkingSlotInFocusID = "";
+    private void handleParkingSlotButtonClick(ParkingSlot parkingSlotClicked) {
+        boolean isParkingSlotClickedInFocus = this.isParkingSlotClickedInFocus(parkingSlotClicked);
+        if (isParkingSlotClickedInFocus) {
+            this.parkingSlotInFocusID = parkingSlotClicked.getIdentifier();
         } else {
-            this.parkingSlotInFocusID = parkingSlotIdentifier;
+            this.parkingSlotInFocusID = "";
         }
 
-        if (isParkingSlotInFocus) {
-            this.optionsPanel.repaintParkingSlotOptions(parkingSlotInFocus);
+        this.toggleOptionsPanel(parkingSlotClicked, isParkingSlotClickedInFocus);
+    }
+
+    private boolean isParkingSlotClickedInFocus(ParkingSlot parkingSlotClicked) {
+        boolean isParkingSlotInFocus = true;
+        final String parkingSlotIdentifier = parkingSlotClicked.getIdentifier();
+        if (parkingSlotIdentifier.equals(this.parkingSlotInFocusID)) {
+            isParkingSlotInFocus = false;
+        }
+
+        return isParkingSlotInFocus;
+    }
+
+    private void toggleOptionsPanel(ParkingSlot parkingSlotClicked, boolean isParkingSlotClickedInFocus) {
+        if (isParkingSlotClickedInFocus) {
+            this.optionsPanel.repaintParkingSlotOptions(parkingSlotClicked);
         } else {
             this.optionsPanel.unpaintParkingSlotOptions();
         }
