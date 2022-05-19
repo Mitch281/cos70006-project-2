@@ -191,7 +191,7 @@ public class CarParkScreen {
             parkingSlot.parkCar(carToBeParked);
             parkingSlotsPanel.parkCar(parkingSlot);
         } catch (Exception e) {
-            // handle exception appropriately.
+            Util.openErrorDialog(e.getMessage());
         }
     }
 
@@ -250,7 +250,7 @@ public class CarParkScreen {
             parkingSlotsPanel.addParkingSlot(parkingSlotJustAdded, this.parkingSlotToButton, parkingSlotAddedButton);
             this.addClickListenerToParkingSlot(parkingSlotJustAdded, parkingSlotAddedButton);
         } catch (Exception e) {
-            // Catch error appropriately.
+            Util.openErrorDialog(e.getMessage());
         }
     }
 

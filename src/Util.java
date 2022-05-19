@@ -128,4 +128,8 @@ public class Util {
             JOptionPane.showMessageDialog(new JFrame(), successMessage);
         }
     }
+
+    public static void openErrorDialog(String errorMessage) {
+        JOptionPane.showMessageDialog(new JFrame(), errorMessage);
+    }
 }
