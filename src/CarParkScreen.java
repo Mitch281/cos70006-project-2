@@ -160,7 +160,7 @@ public class CarParkScreen {
                 case "find car" -> this.handleFindCar(inputPanel);
                 case "remove car" -> this.handleRemoveCar(carParked);
                 case "add parking slot" -> this.handleAddParkingSlot(inputPanel);
-                case "delete parking slot" -> this.handleDeleteParkingSlot(inputPanel);
+                case "delete parking slot" -> this.handleDeleteParkingSlot();
             }
         }
     }
@@ -255,17 +255,11 @@ public class CarParkScreen {
     }
 
     /**
-     * Deletes a parking slot based on the information entered by the user into the dialog.
-     * @param inputPanel: The panel contained in the dialog containing the user input.
+     * Deletes the parking slot currently in focus.
      */
-    private void handleDeleteParkingSlot(JPanel inputPanel) {
-        final HashMap<String, Component> namesToComponents = Util.createNamesToComponentsMap(new HashMap<>(), inputPanel);
-
-        final JComboBox parkingSlotIdentifiersComboBox = (JComboBox) namesToComponents.get(Util.PARKING_SLOT_COMBO_BOX_NAME);
-        final String parkingSlotToDeleteIdentifier = parkingSlotIdentifiersComboBox.getSelectedItem().toString();
-
-        carPark.deleteParkingSlot(parkingSlotToDeleteIdentifier);
-        this.parkingSlotsPanel.deleteParkingSlot(parkingSlotToDeleteIdentifier);
+    private void handleDeleteParkingSlot() {
+        carPark.deleteParkingSlot(this.parkingSlotInFocusID);
+        this.parkingSlotsPanel.deleteParkingSlot(this.parkingSlotInFocusID);
     }
 
     /**
@@ -297,7 +291,8 @@ public class CarParkScreen {
         });
 
         this.optionsPanel.getDeleteParkingSlotButton().addActionListener(e -> {
-            final JPanel deleteParkingSlotInputPanel = Util.createDeleteParkingSlotInputPanel(carPark);
+            final ParkingSlot parkingSlotInFocus = carPark.getParkingSlots().get(this.parkingSlotInFocusID);
+            final JPanel deleteParkingSlotInputPanel = Util.createDeleteParkingSlotInputPanel(parkingSlotInFocus);
             this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER, ACTIONS[4], null);
         });
     }

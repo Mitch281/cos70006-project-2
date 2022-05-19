@@ -83,7 +83,7 @@ public class Util {
         } else {
             removeCarInputPanel.add(new JLabel("There is no car parked here."));
         }
-//
+
         return removeCarInputPanel;
     }
 
@@ -97,24 +97,12 @@ public class Util {
         return createParkingSlotInputPanel;
     }
 
-    public static JPanel createDeleteParkingSlotInputPanel(CarPark carPark) {
-        final JPanel deleteParkingSlotInputPanel = new JPanel();
-
-        final Set<String> parkingSlotIdentifiers = carPark.getParkingSlots().keySet();
-        final String[] parkingSlotIdentifiersArray = new String[parkingSlotIdentifiers.size()];
-        int i = 0;
-        for (String parkingSlotIdentifier: parkingSlotIdentifiers) {
-            parkingSlotIdentifiersArray[i] = parkingSlotIdentifier;
-            i++;
-        }
-
-        deleteParkingSlotInputPanel.add(new JLabel("Select Parking Slot to Remove"));
-
-        final JComboBox parkingSlotIdentifiersComboBox = new JComboBox(parkingSlotIdentifiersArray);
-        parkingSlotIdentifiersComboBox.setName(PARKING_SLOT_COMBO_BOX_NAME);
-        deleteParkingSlotInputPanel.add(parkingSlotIdentifiersComboBox);
-
-        return deleteParkingSlotInputPanel;
+    public static JPanel createDeleteParkingSlotInputPanel(ParkingSlot parkingSlotInFocus) {
+        final JPanel removeParkingSlotInputPanel = new JPanel();
+        final String parkingSlotIdentifier = parkingSlotInFocus.getIdentifier();
+        final String labelText = String.format("Are you sure you want to remove parking slot %s?", parkingSlotIdentifier);
+        removeParkingSlotInputPanel.add(new JLabel(labelText));
+        return removeParkingSlotInputPanel;
     }
 
     // Helper function that maps names of components to the component.
