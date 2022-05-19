@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Set;
 
 public class Util {
 
@@ -19,7 +18,7 @@ public class Util {
         final GridBagConstraints gbc = new GridBagConstraints();
 
         final JPanel carRegistrationInputPanel = new JPanel();
-        carRegistrationInputPanel.add(new JLabel("Car registration: "));
+        carRegistrationInputPanel.add(new JLabel("Car registration (capital letter followed by 5 digits)" ));
         final JTextArea carRegistrationTextArea = new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA);
         carRegistrationTextArea.setName(CAR_REG_TEXT_AREA_NAME);
         carRegistrationInputPanel.add(carRegistrationTextArea);
@@ -31,14 +30,14 @@ public class Util {
         carOwnerInputPanel.add(carOwnerTextArea);
 
         final JPanel ownerTypeInputPanel = new JPanel();
-        ownerTypeInputPanel.add(new JLabel("Select Owner Type: "));
+        ownerTypeInputPanel.add(new JLabel("Owner Type: "));
         String[] ownerTypes = {parkingSlotInFocus.getType()};
         final JComboBox ownerTypesComboBox = new JComboBox<>(ownerTypes);
         ownerTypesComboBox.setName(CAR_OWNER_TYPE_COMBO_BOX_NAME);
         ownerTypeInputPanel.add(ownerTypesComboBox);
 
         final JPanel parkingSlotInputPanel = new JPanel();
-        parkingSlotInputPanel.add(new JLabel("Select Parking Slot to Park Car in: "));
+        parkingSlotInputPanel.add(new JLabel("Parking Slot to Park Car in: "));
         final String[] parkingSlotIdentifiers = {parkingSlotInFocus.getIdentifier()};
         final JComboBox parkingSlotIDsComboBox = new JComboBox(parkingSlotIdentifiers);
         parkingSlotIDsComboBox.setName(PARKING_SLOT_COMBO_BOX_NAME);
@@ -62,7 +61,7 @@ public class Util {
 
     public static JPanel createFindCarInputPanel() {
         final JPanel findCarPanel = new JPanel();
-        findCarPanel.add(new JLabel("Enter Car Registration: "));
+        findCarPanel.add(new JLabel("Enter Car Registration (capital letter followed by 5 digits): "));
         final JTextArea carRegistrationTextArea = new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA);
         carRegistrationTextArea.setName(CAR_REG_TEXT_AREA_NAME);
         findCarPanel.add(carRegistrationTextArea);
@@ -89,10 +88,12 @@ public class Util {
 
     public static JPanel createAddParkingSlotInputPanel() {
         final JPanel createParkingSlotInputPanel = new JPanel();
-        createParkingSlotInputPanel.add(new JLabel("Parking Slot Identifier: "));
+        createParkingSlotInputPanel.add(new JLabel("Parking Slot Identifier"));
         final JTextArea addParkingSlotTextArea = new JTextArea(NUM_ROWS_TEXT_AREA, NUM_COLUMNS_TEXT_AREA);
         addParkingSlotTextArea.setName(PARKING_SLOT_TEXT_AREA_NAME);
         createParkingSlotInputPanel.add(addParkingSlotTextArea);
+        createParkingSlotInputPanel.add(new JLabel("(Please start the parking slot identifier with capital V " +
+                "for visitor or capital S for student, followed by 3 digits. For example: S231.)"));
 
         return createParkingSlotInputPanel;
     }
