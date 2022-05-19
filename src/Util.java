@@ -14,7 +14,7 @@ public class Util {
     public static final String PARKING_SLOT_COMBO_BOX_NAME = "parkingSlotSelect";
     public static final String PARKING_SLOT_TEXT_AREA_NAME = "parkingSlotIdentifierInput";
 
-    public static JPanel createParkCarInputPanel(CarPark carPark, ParkingSlot parkingSlotInFocus) {
+    public static JPanel createParkCarInputPanel(ParkingSlot parkingSlotInFocus) {
         final JPanel carParkInputPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
 
