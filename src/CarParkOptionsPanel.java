@@ -89,7 +89,7 @@ public class CarParkOptionsPanel {
     }
 
     /**
-     * Creates and paints the title of the options header.
+     * Creates and paints the title of the options header, as well as find car and add parking slot buttons,
      * This is only called once when the options panel is initially painted.
      */
     public void paintOptionsPanelHeader() {
@@ -98,6 +98,10 @@ public class CarParkOptionsPanel {
         this.gbc.gridx = 0;
         this.gbc.gridy = 0;
         this.optionsPanel.add(optionsHeader, gbc);
+        this.paintButton(this.findCarButton, 3);
+        this.paintButton(this.addParkingSlotButton, 4);
+        this.findCarButton.setVisible(true);
+        this.addParkingSlotButton.setVisible(true);
     }
 
 
@@ -109,21 +113,9 @@ public class CarParkOptionsPanel {
         this.paintParkingSlotID();
         this.paintCarParkedInSlot();
 
-        int gridyForButtons = 3;
-
-        this.paintButton(this.parkCarButton, gridyForButtons);
-        gridyForButtons++;
-
-        this.paintButton(this.findCarButton, gridyForButtons);
-        gridyForButtons++;
-
-        this.paintButton(this.removeCarButton, gridyForButtons);
-        gridyForButtons++;
-
-        this.paintButton(this.addParkingSlotButton, gridyForButtons);
-        gridyForButtons++;
-
-        this.paintButton(this.deleteParkingSlotButton, gridyForButtons);
+        this.paintButton(this.parkCarButton, 5);
+        this.paintButton(this.removeCarButton, 6);
+        this.paintButton(this.deleteParkingSlotButton, 7);
     }
 
     /**
@@ -155,7 +147,8 @@ public class CarParkOptionsPanel {
             final String carParkedRegistration = carParked.getRegistrationNumber();
             final String carOwner = carParked.getOwner();
             final String carOwnerType = carParked.getOwnerType();
-            final String output = String.format("%s is parked here. This car is owned by the %s named %s.",
+            final String output = String.format("<html><p>%s is parked here. This car is owned by the %s named %s." +
+                            "</p></html>",
                     carParkedRegistration, carOwnerType, carOwner);
             this.carParkedInSlotLabel.setText(output);
         }
@@ -168,9 +161,7 @@ public class CarParkOptionsPanel {
         this.parkingSlotIDLabel.setText("");
         this.carParkedInSlotLabel.setText("");
         this.parkCarButton.setVisible(false);
-        this.findCarButton.setVisible(false);
         this.removeCarButton.setVisible(false);
-        this.addParkingSlotButton.setVisible(false);
         this.deleteParkingSlotButton.setVisible(false);
     }
 
