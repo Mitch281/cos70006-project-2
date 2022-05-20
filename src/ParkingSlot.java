@@ -52,14 +52,6 @@ public class ParkingSlot {
     }
 
     /**
-     * Sets the car parked in the parking slot.
-     * @param carParked: The car parked in the parking slot.
-     */
-    public void setCarParked(Car carParked) {
-        this.carParked = carParked;
-    }
-
-    /**
      * Gets the type of the parking slot (Staff or Visitor).
      * @return the type of the parking slot.
      */

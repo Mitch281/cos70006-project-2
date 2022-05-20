@@ -49,14 +49,6 @@ public class Car {
     }
 
     /**
-     * Set owner of the car.
-     * @param owner: Owner of the car to be set.
-     */
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    /**
      * Get owner type of the car.
      * @return owner type of the car.
      */

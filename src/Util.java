@@ -49,7 +49,7 @@ public class Util {
         final JPanel parkingSlotInputPanel = new JPanel();
         parkingSlotInputPanel.add(new JLabel("Parking Slot to Park Car in: "));
         final String[] parkingSlotIdentifiers = {parkingSlotInFocus.getIdentifier()};
-        final JComboBox parkingSlotIDsComboBox = new JComboBox(parkingSlotIdentifiers);
+        final JComboBox parkingSlotIDsComboBox = new JComboBox<>(parkingSlotIdentifiers);
         parkingSlotIDsComboBox.setName(PARKING_SLOT_COMBO_BOX_NAME);
         parkingSlotInputPanel.add(parkingSlotIDsComboBox);
 

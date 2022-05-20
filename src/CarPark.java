@@ -8,7 +8,7 @@ public class CarPark {
 
     public static final int MAX_NUMBER_PARKING_SLOTS = 999;
 
-    private LinkedHashMap<String, ParkingSlot> parkingSlots = new LinkedHashMap<>();
+    private final LinkedHashMap<String, ParkingSlot> parkingSlots = new LinkedHashMap<>();
 
     /**
      * Created an instance of CarPark.
@@ -102,20 +102,6 @@ public class CarPark {
         }
         ParkingSlot newParkingSlot = new ParkingSlot(parkingSlotIdentifier);
         this.parkingSlots.put(parkingSlotIdentifier, newParkingSlot);
-    }
-
-    /**
-     * Finds a parking slot in the car park given a parking slot identifier.
-     * @param parkingSlotIdentifierToFind: The identifier of the parking slot we want to find.
-     * @return the parking slot found, or null if not found.
-     */
-    private ParkingSlot findParkingSlot(String parkingSlotIdentifierToFind) {
-        for (String parkingSlotIdentifier: this.parkingSlots.keySet()) {
-            if (parkingSlotIdentifier.equals(parkingSlotIdentifierToFind)) {
-                return this.parkingSlots.get(parkingSlotIdentifier);
-            }
-        }
-        return null;
     }
 
     /**
