@@ -109,6 +109,11 @@ public class CarPark {
      * @param parkingSlotToDeleteIdentifier: The identifier of the parking slot to be deleted.
      */
     public void deleteParkingSlot(String parkingSlotToDeleteIdentifier) {
+        final ParkingSlot parkingSlot = parkingSlots.get(parkingSlotToDeleteIdentifier);
+        if (parkingSlot.isSlotOccupied()) {
+            throw new IllegalArgumentException("You cannot delete this parking slot as it is occupied!");
+        }
+
         this.parkingSlots.remove(parkingSlotToDeleteIdentifier);
     }
 }

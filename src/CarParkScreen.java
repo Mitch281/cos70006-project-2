@@ -261,10 +261,14 @@ public class CarParkScreen {
      * Deletes the parking slot currently in focus.
      */
     private void handleDeleteParkingSlot() {
-        carPark.deleteParkingSlot(this.parkingSlotInFocusID);
-        this.parkingSlotsPanel.removeParkingSlotButton(this.parkingSlotInFocusID);
-        this.parkingSlotInFocusID = "";
-        this.optionsPanel.unpaintParkingSlotOptions();
+        try {
+            carPark.deleteParkingSlot(this.parkingSlotInFocusID);
+            this.parkingSlotsPanel.removeParkingSlotButton(this.parkingSlotInFocusID);
+            this.parkingSlotInFocusID = "";
+            this.optionsPanel.unpaintParkingSlotOptions();
+        } catch (Exception e) {
+            Util.openErrorDialog(e.getMessage());
+        }
     }
 
     /**
