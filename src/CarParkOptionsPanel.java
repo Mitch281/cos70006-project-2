@@ -94,7 +94,6 @@ public class CarParkOptionsPanel {
      */
     public void paintOptionsPanelHeader() {
         final JLabel optionsHeader = new JLabel("Options");
-        optionsHeader.setFont(new Font(Constants.DEFAULT_FONT, Font.BOLD, Constants.OPTIONS_HEADER_FONT_SIZE));
         this.gbc.gridx = 0;
         this.gbc.gridy = 0;
         this.optionsPanel.add(optionsHeader, gbc);
