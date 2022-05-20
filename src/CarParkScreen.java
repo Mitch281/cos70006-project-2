@@ -10,8 +10,6 @@ import java.util.*;
  */
 public class CarParkScreen {
 
-    // TODO: Make Add and Remove Panel options visible all the time.
-
     private static final String PARK_CAR_DIALOG_HEADER = "Park Car";
     private static final String FIND_CAR_DIALOG_HEADER = "Find Car";
     private static final String REMOVE_CAR_DIALOG_HEADER  = "Remove Car";
@@ -116,7 +114,8 @@ public class CarParkScreen {
     }
 
     /**
-     * // TODO: Add relevant description here.
+     * Sets the identifier of the parking slot in focus depending on which parking slot button clicked.
+     * Then toggles the options panel based on this information.
      * @param parkingSlotClicked: The parking slot clicked.
      */
     private void handleParkingSlotButtonClick(ParkingSlot parkingSlotClicked) {
