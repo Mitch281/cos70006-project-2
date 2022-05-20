@@ -19,14 +19,6 @@ public class CarPark {
     }
 
     /**
-     * Sets parking slots based on given value.
-     * @param parkingSlots: Value to be set into parking slots.
-     */
-    public void setParkingSlots(LinkedHashMap<String, ParkingSlot> parkingSlots) {
-        this.parkingSlots = parkingSlots;
-    }
-
-    /**
      * Creates parking slots for the car park based on user inputted information about the number of staff slots
      * and the number of student slots.
      * @param numStaffSlots: The number of staff parking slots to create.
@@ -129,7 +121,6 @@ public class CarPark {
     /**
      * Delete a parking slot based on the inputted parking slot identifier.
      * @param parkingSlotToDeleteIdentifier: The identifier of the parking slot to be deleted.
-     * @throws NoSuchFieldException: Thrown if we cannot find the parking slot to be deleted in the car park.
      */
     public void deleteParkingSlot(String parkingSlotToDeleteIdentifier) {
         this.parkingSlots.remove(parkingSlotToDeleteIdentifier);

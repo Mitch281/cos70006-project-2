@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The screen to input the number of staff and student slots the user wants to create.
+ */
 public class NumSlotsInputScreen {
 
     private final JPanel inputPanel = new JPanel();

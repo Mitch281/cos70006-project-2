@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Displays the options panel for operations on parking slots. Also displays the car parked in parking slots.
+ */
 public class CarParkOptionsPanel {
 
     private final JPanel optionsPanel = new JPanel(new GridBagLayout());

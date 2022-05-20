@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Represents a screen made up of two pages (slot input page and car park page).
+ */
 public class Screen {
 
     public static final int WIDTH = 800;

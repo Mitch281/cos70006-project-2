@@ -4,6 +4,10 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.*;
 
+/**
+ * Contains the car park panel and options panel. Responsible for performing car park logic and sending
+ * relevant information to ParkingSlotsPanel and CarParkOptionsPanel so they can update the GUI appropriately.
+ */
 public class CarParkScreen {
 
     // TODO: Make Add and Remove Panel options visible all the time.

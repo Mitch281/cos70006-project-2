@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Represents panel which displays parking slots, as well as performing GUI updates to the panel when a slot
+ * is modified.
+ */
 public class ParkingSlotsPanel {
     private static final int NUM_SLOTS_PER_ROW = 15;
 

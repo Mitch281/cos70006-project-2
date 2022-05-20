@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+/**
+ * Helper methods to create input panels and open dialogs, as well as creating mappings from component names
+ * to components.
+ */
 public class Util {
 
     private static final int NUM_ROWS_TEXT_AREA = 1;
