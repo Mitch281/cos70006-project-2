@@ -189,7 +189,7 @@ public class CarParkScreen {
         try {
             final Car carToBeParked = new Car(carRegistration, carOwner, ownerType);
             parkingSlot.parkCar(carToBeParked);
-            parkingSlotsPanel.parkCar(parkingSlot);
+            parkingSlotsPanel.setParkingSlotBackgroundToRed(parkingSlot);
         } catch (Exception e) {
             Util.openErrorDialog(e.getMessage());
         }
@@ -228,7 +228,7 @@ public class CarParkScreen {
             carPark.removeCar(carRegistrationToRemove);
 
             final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
-            parkingSlotsPanel.removeCar(parkingSlotInFocus);
+            parkingSlotsPanel.setParkingSlotBackgroundToGreen(parkingSlotInFocus);
         }
     }
 
@@ -247,7 +247,7 @@ public class CarParkScreen {
             ParkingSlot parkingSlotJustAdded = carPark.getParkingSlots().get(parkingSlotIDEntered);
             final JButton parkingSlotAddedButton = new JButton(parkingSlotIDEntered);
             parkingSlotAddedButton.setName(parkingSlotIDEntered);
-            parkingSlotsPanel.addParkingSlot(parkingSlotJustAdded, this.parkingSlotToButton, parkingSlotAddedButton);
+            parkingSlotsPanel.paintNewParkingSlot(parkingSlotJustAdded, this.parkingSlotToButton, parkingSlotAddedButton);
             this.addClickListenerToParkingSlot(parkingSlotJustAdded, parkingSlotAddedButton);
         } catch (Exception e) {
             Util.openErrorDialog(e.getMessage());
@@ -259,7 +259,7 @@ public class CarParkScreen {
      */
     private void handleDeleteParkingSlot() {
         carPark.deleteParkingSlot(this.parkingSlotInFocusID);
-        this.parkingSlotsPanel.deleteParkingSlot(this.parkingSlotInFocusID);
+        this.parkingSlotsPanel.removeParkingSlotButton(this.parkingSlotInFocusID);
         this.parkingSlotInFocusID = "";
         this.optionsPanel.unpaintParkingSlotOptions();
     }

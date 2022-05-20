@@ -15,37 +15,65 @@ public class NumSlotsInputScreen {
     private final JTextField numStudentSlotsField = new JTextField();
 
     private final JButton submitSlotNumbersButton = new JButton("Start");
-    private final GridBagLayout gridBagLayout = new GridBagLayout();
     private final GridBagConstraints gbc = new GridBagConstraints();
 
     private final JLabel errorMessage = new JLabel();
 
+    /**
+     * Creates an instance of NumSlotsInputScreen. Also sets grid bad layout for input panel and adds
+     * relevant components to input panel.
+     */
     public NumSlotsInputScreen() {
-        this.inputPanel.setLayout(gridBagLayout);
-        this.changeLayout();
+        this.inputPanel.setLayout(new GridBagLayout());
+        this.setLayout();
     }
 
+    /**
+     * Gets input panel.
+     * @return input panel.
+     */
     public JPanel getInputPanel() {
         return inputPanel;
     }
 
+    /**
+     * Gets number of staff slots text field.
+     * @return number of staff slots text field.
+     */
     public JTextField getNumStaffSlotsField() {
         return numStaffSlotsField;
     }
 
+    /**
+     * Gets number of student slots text field.
+     * @return number of student slots text field.
+     */
     public JTextField getNumStudentSlotsField() {
         return numStudentSlotsField;
     }
 
+    /**
+     * Gets submit button.
+     * @return submit button.
+     */
     public JButton getSubmitSlotNumbersButton() {
         return submitSlotNumbersButton;
     }
 
+    /**
+     * Get error message label.
+     * @return error message label.
+     */
     public JLabel getErrorMessage() {
         return errorMessage;
     }
 
-    private void changeLayout() {
+    /**
+     * Sets the layout of the input panel.
+     */
+    private void setLayout() {
+        this.numStaffSlotsField.setPreferredSize(new Dimension(100, 30));
+        this.numStudentSlotsField.setPreferredSize(new Dimension(100, 30));
 
         // Add margins to top of components.
         this.gbc.insets = new Insets(5, 0, 0, 0);

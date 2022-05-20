@@ -7,12 +7,18 @@ public class Util {
     private static final int NUM_ROWS_TEXT_AREA = 1;
     private static final int NUM_COLUMNS_TEXT_AREA = 5;
 
+    // These constants are used to set the names of components.
     public static final String CAR_REG_TEXT_AREA_NAME = "carRegistrationInput";
     public static final String CAR_OWNER_TEXT_AREA_NAME = "carOwnerInput";
     public static final String CAR_OWNER_TYPE_COMBO_BOX_NAME = "selectOwnerType";
     public static final String PARKING_SLOT_COMBO_BOX_NAME = "parkingSlotSelect";
     public static final String PARKING_SLOT_TEXT_AREA_NAME = "parkingSlotIdentifierInput";
 
+    /**
+     * Creates a panel for the user to input a car to park using the parking slot in focus.
+     * @param parkingSlotInFocus: The parking slot currently in focus.
+     * @return JPanel for user input to park a car.
+     */
     public static JPanel createParkCarInputPanel(ParkingSlot parkingSlotInFocus) {
         final JPanel carParkInputPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
@@ -59,6 +65,10 @@ public class Util {
         return carParkInputPanel;
     }
 
+    /**
+     * Creates a JPanel for user input to find a car.
+     * @return JPanel for user input to find a car.
+     */
     public static JPanel createFindCarInputPanel() {
         final JPanel findCarPanel = new JPanel();
         findCarPanel.add(new JLabel("Enter Car Registration (capital letter followed by 5 digits): "));
@@ -70,6 +80,11 @@ public class Util {
         return findCarPanel;
     }
 
+    /**
+     * Creates a JPanel for user input to remove a car using the respective parking slot in focus.
+     * @param parkingSlotInFocus: The parking slot in focus.
+     * @return JPanel for user input to remove a car.
+     */
     public static JPanel createRemoveCarInputPanel(ParkingSlot parkingSlotInFocus) {
         final JPanel removeCarInputPanel = new JPanel();
         final Car carParkedInParkingSlot = parkingSlotInFocus.getCarParked();
@@ -86,6 +101,10 @@ public class Util {
         return removeCarInputPanel;
     }
 
+    /**
+     * Creates a JPanel for user input to add a parking slot.
+     * @return JPanel for user input to add a parking slot.
+     */
     public static JPanel createAddParkingSlotInputPanel() {
         final JPanel createParkingSlotInputPanel = new JPanel();
         createParkingSlotInputPanel.add(new JLabel("Parking Slot Identifier"));
@@ -98,6 +117,11 @@ public class Util {
         return createParkingSlotInputPanel;
     }
 
+    /**
+     * Creates a JPanel for user input to delete a parking slot, using the respective parking slot in focus,
+     * @param parkingSlotInFocus: The parking slot currently in focus.
+     * @return JPanel for user input to delete a parking slot.
+     */
     public static JPanel createDeleteParkingSlotInputPanel(ParkingSlot parkingSlotInFocus) {
         final JPanel removeParkingSlotInputPanel = new JPanel();
         final String parkingSlotIdentifier = parkingSlotInFocus.getIdentifier();
@@ -106,9 +130,15 @@ public class Util {
         return removeParkingSlotInputPanel;
     }
 
-    // Helper function that maps names of components to the component.
+    /**
+     * Maps names of components to the components.
+     * @param namesToComponents: Initial names to components hash map, to be used to recursively build the names to
+     *                         components hash map.
+     * @param panel: The panel which contains the components we want to create a map from.
+     * @return a hash map which maps component names to components.
+     */
     public static HashMap<String, Component> createNamesToComponentsMap(HashMap<String, Component> namesToComponents, JPanel panel) {
-        Component[] components = panel.getComponents();;
+        Component[] components = panel.getComponents();
         for (Component component : components) {
             if (component.getClass() == JPanel.class) {
                 createNamesToComponentsMap(namesToComponents, (JPanel) component);
@@ -120,6 +150,12 @@ public class Util {
         return namesToComponents;
     }
 
+    /**
+     * Opens a dialog telling the user parking slot the desired car was found in (or message telling user car wasn't
+     * found if it wasn't found).
+     * @param carRegoToBeFound: The registration of the car the user wants to find.
+     * @param parkingSlotIdCarFoundIn: The parking slot the car was found in.
+     */
     public static void openCarFoundDialog(String carRegoToBeFound, String parkingSlotIdCarFoundIn) {
         final String failMessage = "Car not found.";
         final String successMessage = String.format("The car %s was found in %s", carRegoToBeFound, parkingSlotIdCarFoundIn);
@@ -130,6 +166,10 @@ public class Util {
         }
     }
 
+    /**
+     * Displays an error message in a dialog.
+     * @param errorMessage: The error message to display.
+     */
     public static void openErrorDialog(String errorMessage) {
         JOptionPane.showMessageDialog(new JFrame(), errorMessage);
     }

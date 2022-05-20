@@ -9,16 +9,25 @@ public class Screen {
 
     private final JFrame window = new JFrame("Parking Spot System");
     private final CardLayout cardLayout = new CardLayout();
+
+    // The parent panel for both the car park screen and the slot input screen.
     private final JPanel contentPanel = new JPanel(cardLayout);
 
     private final NumSlotsInputScreen numSlotsInputScreen = new NumSlotsInputScreen();
     private final CarParkScreen carParkScreen = new CarParkScreen();
 
+    /**
+     * Creates an instance of Screen. Specifies width and height of main JFrame and sets default on close behaviour
+     * to exit on close.
+     */
     public Screen() {
         this.window.setSize(WIDTH, HEIGHT);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    /**
+     * Renders the initial screen and makes window visible.
+     */
     public void run() {
         runSlotInputScreen();
 
@@ -28,17 +37,22 @@ public class Screen {
         this.window.setVisible(true);
     }
 
+    /**
+     * Adds action listener to the start button. Also adds the content panel to content pain of the main
+     * JFrame.
+     */
     private void runSlotInputScreen() {
-        this.numSlotsInputScreen.getNumStaffSlotsField().setPreferredSize(new Dimension(100, 30));
-        this.numSlotsInputScreen.getNumStudentSlotsField().setPreferredSize(new Dimension(100, 30));
 
         // Action listener on button to start program.
         this.numSlotsInputScreen.getSubmitSlotNumbersButton().addActionListener(e -> getSlotNumbersInput());
 
-        this.cardLayout.show(this.contentPanel, String.valueOf(cardNumber));
         this.window.getContentPane().add(contentPanel);
     }
 
+    /**
+     * Gets and validates the number of slots entered by the user when the start button is pressed. If validation
+     * is successful, it will change the content panel to render the car park screen.
+     */
     private void getSlotNumbersInput() {
         String staffSlotsInput = this.numSlotsInputScreen.getNumStaffSlotsField().getText();
         String studentSlotsInput = this.numSlotsInputScreen.getNumStudentSlotsField().getText();
@@ -66,6 +80,9 @@ public class Screen {
         }
     }
 
+    /**
+     * Changes panel from home screen (inputting number of slots) to car park screen.
+     */
     private void changePanel() {
         cardNumber++;
         this.cardLayout.show(this.contentPanel, String.valueOf(cardNumber));
