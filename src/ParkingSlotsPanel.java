@@ -69,17 +69,14 @@ public class ParkingSlotsPanel {
         parkingSlotButton.setBackground(Color.GREEN);
     }
 
-
     // TODO: Improve how this is done!! It is very ugly atm.
     public void addParkingSlot(ParkingSlot newParkingSlot, LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, JButton newParkingSlotButton) {
-        final int currentNumParkingSlots = this.parkingSlotsPanel.getComponentCount();
-        final int xPos = this.getNumRows(currentNumParkingSlots) - 1;
-        final int yPos = currentNumParkingSlots % NUM_SLOTS_PER_ROW;
 
         final String newParkingSlotIdentifier = newParkingSlot.getIdentifier();
         newParkingSlotButton.setName(newParkingSlotIdentifier);
         newParkingSlotButton.setMargin(new Insets(0, 0, 0, 0));
-        this.parkingSlotsPanel.add(newParkingSlotButton, xPos, yPos);
+        this.parkingSlotsPanel.add(newParkingSlotButton);
+
         parkingSlotToButton.put(newParkingSlot, newParkingSlotButton);
 
         final boolean isParkingSlotOccupied = newParkingSlot.isSlotOccupied();
@@ -117,14 +114,6 @@ public class ParkingSlotsPanel {
 
     private int getNumRows(int numStaffSlots, int numStudentSlots) {
         final int totalNumSlots = numStaffSlots + numStudentSlots;
-        if (totalNumSlots % NUM_SLOTS_PER_ROW == 0) {
-            return Math.floorDiv(totalNumSlots, NUM_SLOTS_PER_ROW);
-        } else {
-            return Math.floorDiv(totalNumSlots, NUM_SLOTS_PER_ROW) + 1;
-        }
-    }
-
-    private int getNumRows(int totalNumSlots) {
         if (totalNumSlots % NUM_SLOTS_PER_ROW == 0) {
             return Math.floorDiv(totalNumSlots, NUM_SLOTS_PER_ROW);
         } else {
