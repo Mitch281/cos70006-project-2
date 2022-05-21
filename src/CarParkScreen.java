@@ -23,8 +23,8 @@ public class CarParkScreen {
     public static final double OPTIONS_PANEL_WIDTH_MULTIPLIER = 1 - PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER;
 
     private final JPanel carParkPanel = new JPanel();
-    private final ParkingSlotsPanel parkingSlotsPanel = new ParkingSlotsPanel();
-    private final CarParkOptionsPanel optionsPanel = new CarParkOptionsPanel();
+    private final ParkingSlotsSubScreen parkingSlotsSubScreen = new ParkingSlotsSubScreen();
+    private final CarParkOptionsSubScreen optionsPanel = new CarParkOptionsSubScreen();
 
     private final CarPark carPark = new CarPark();
     private final LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton = new LinkedHashMap<>();
@@ -37,7 +37,7 @@ public class CarParkScreen {
      */
     public CarParkScreen() {
         this.carParkPanel.setLayout(new BorderLayout());
-        this.carParkPanel.add(this.parkingSlotsPanel.getParkingSlotsPanel(), BorderLayout.LINE_START);
+        this.carParkPanel.add(this.parkingSlotsSubScreen.getParkingSlotsPanel(), BorderLayout.LINE_START);
         this.carParkPanel.add(this.optionsPanel.getOptionsPanel(), BorderLayout.LINE_END);
     }
 
@@ -51,14 +51,14 @@ public class CarParkScreen {
         window.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                parkingSlotsPanel.setParkingSlotsPanelSize(window);
+                parkingSlotsSubScreen.setParkingSlotsPanelSize(window);
                 optionsPanel.setCarParkOptionsPanelSize(window);
             }
         });
 
         // Resize listener for when user maximises window.
         window.addWindowStateListener(e -> {
-            parkingSlotsPanel.setParkingSlotsPanelSize(window);
+            parkingSlotsSubScreen.setParkingSlotsPanelSize(window);
             optionsPanel.setCarParkOptionsPanelSize(window);
         });
     }
@@ -78,8 +78,8 @@ public class CarParkScreen {
      * @param numStudentSlots: The number of student slots the user entered.
      */
     public void paintParkingSlots(int numStaffSlots, int numStudentSlots) {
-        this.parkingSlotsPanel.paintParkingSlots(this.parkingSlotToButton, this.carPark, numStaffSlots, numStudentSlots);
-        this.parkingSlotsPanel.setLayout(this.parkingSlotToButton, numStaffSlots, numStudentSlots);
+        this.parkingSlotsSubScreen.paintParkingSlots(this.parkingSlotToButton, this.carPark, numStaffSlots, numStudentSlots);
+        this.parkingSlotsSubScreen.setLayout(this.parkingSlotToButton, numStaffSlots, numStudentSlots);
         this.addClickListenersToParkingSlots();
     }
 
@@ -115,7 +115,8 @@ public class CarParkScreen {
 
     /**
      * Sets the identifier of the parking slot in focus depending on which parking slot button clicked.
-     * Then toggles the options panel based on this information.
+     * Then toggles the options panel as well as highlights and/or unhighlights the relevant parking slot
+     * button/s based on this information.
      * @param parkingSlotClicked: The parking slot clicked.
      */
     private void handleParkingSlotButtonClick(ParkingSlot parkingSlotClicked) {
@@ -124,28 +125,28 @@ public class CarParkScreen {
 
         // The parking slot we clicked is in focus and is unfocusing another parking slot.
         if (isParkingSlotClickedInFocus && !this.parkingSlotInFocusID.isEmpty()) {
-            final JButton oldParkingSlotButtonInFocus = Util.getParkingSlotButtonFromIdentifier(new HashMap<>(), parkingSlotsPanel, this.parkingSlotInFocusID);
-            parkingSlotsPanel.unhighlightParkingSlot(oldParkingSlotButtonInFocus);
+            final JButton oldParkingSlotButtonInFocus = Util.getParkingSlotButtonFromIdentifier(new HashMap<>(), parkingSlotsSubScreen, this.parkingSlotInFocusID);
+            parkingSlotsSubScreen.unhighlightParkingSlot(oldParkingSlotButtonInFocus);
 
             this.parkingSlotInFocusID = parkingSlotIdentifierClicked;
 
             final JButton newParkingSlotButtonInFocus = Util.getParkingSlotButtonFromIdentifier
-                    (new HashMap<>(), parkingSlotsPanel, parkingSlotIdentifierClicked);
-            parkingSlotsPanel.highlightParkingSlotInFocus(newParkingSlotButtonInFocus);
+                    (new HashMap<>(), parkingSlotsSubScreen, parkingSlotIdentifierClicked);
+            parkingSlotsSubScreen.highlightParkingSlotInFocus(newParkingSlotButtonInFocus);
         }
         // The parking slot we clicked is in focus but no other parking slot was in focus before.
         else if (isParkingSlotClickedInFocus && this.parkingSlotInFocusID.isEmpty()) {
             this.parkingSlotInFocusID = parkingSlotIdentifierClicked;
 
             final JButton newParkingSlotButtonInFocus = Util.getParkingSlotButtonFromIdentifier
-                    (new HashMap<>(), parkingSlotsPanel, parkingSlotIdentifierClicked);
-            parkingSlotsPanel.highlightParkingSlotInFocus(newParkingSlotButtonInFocus);
+                    (new HashMap<>(), parkingSlotsSubScreen, parkingSlotIdentifierClicked);
+            parkingSlotsSubScreen.highlightParkingSlotInFocus(newParkingSlotButtonInFocus);
         }
         // The parking slot we clicked was the same as the one in focus. Thus, we unfocus it.
         else {
             final JButton oldParkingSlotButtonInFocus = Util.
-                    getParkingSlotButtonFromIdentifier(new HashMap<>(), parkingSlotsPanel, parkingSlotIdentifierClicked);
-            parkingSlotsPanel.unhighlightParkingSlot(oldParkingSlotButtonInFocus);
+                    getParkingSlotButtonFromIdentifier(new HashMap<>(), parkingSlotsSubScreen, parkingSlotIdentifierClicked);
+            parkingSlotsSubScreen.unhighlightParkingSlot(oldParkingSlotButtonInFocus);
 
             this.parkingSlotInFocusID = "";
         }
@@ -154,6 +155,12 @@ public class CarParkScreen {
     }
 
 
+    /**
+     * Checks if the parking slot clicked is in focus (for example, if a user clicks the same parking slot that
+     * is already in focus, the parking slot un focuses and thus, this method returns false).
+     * @param parkingSlotClicked: The parking slot clicked.
+     * @return: Boolean value representing if the parking slot clicked is in focus or not.
+     */
     private boolean isParkingSlotClickedInFocus(ParkingSlot parkingSlotClicked) {
         boolean isParkingSlotInFocus = true;
         final String parkingSlotIdentifier = parkingSlotClicked.getIdentifier();
@@ -164,6 +171,11 @@ public class CarParkScreen {
         return isParkingSlotInFocus;
     }
 
+    /**
+     * Toggles the options panel based on the parking slot clicked and if it is in focus,
+     * @param parkingSlotClicked: The parking slot clicked.
+     * @param isParkingSlotClickedInFocus: Boolean value representing if parking slot clicked is in focus.
+     */
     private void toggleOptionsPanel(ParkingSlot parkingSlotClicked, boolean isParkingSlotClickedInFocus) {
         if (isParkingSlotClickedInFocus) {
             this.optionsPanel.repaintParkingSlotOptions(parkingSlotClicked);
@@ -217,7 +229,7 @@ public class CarParkScreen {
         try {
             final Car carToBeParked = new Car(carRegistration, carOwner, ownerType);
             parkingSlot.parkCar(carToBeParked);
-            parkingSlotsPanel.setParkingSlotBackgroundToRed(parkingSlot);
+            parkingSlotsSubScreen.setParkingSlotBackgroundToRed(parkingSlot);
         } catch (Exception e) {
             Util.openErrorDialog(e.getMessage());
         }
@@ -256,7 +268,7 @@ public class CarParkScreen {
             carPark.removeCar(carRegistrationToRemove);
 
             final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
-            parkingSlotsPanel.setParkingSlotBackgroundToGreen(parkingSlotInFocus);
+            parkingSlotsSubScreen.setParkingSlotBackgroundToGreen(parkingSlotInFocus);
         }
     }
 
@@ -275,7 +287,7 @@ public class CarParkScreen {
             ParkingSlot parkingSlotJustAdded = carPark.getParkingSlots().get(parkingSlotIDEntered);
             final JButton parkingSlotAddedButton = new JButton(parkingSlotIDEntered);
             parkingSlotAddedButton.setName(parkingSlotIDEntered);
-            parkingSlotsPanel.paintNewParkingSlot(parkingSlotJustAdded, this.parkingSlotToButton, parkingSlotAddedButton);
+            parkingSlotsSubScreen.paintNewParkingSlot(parkingSlotJustAdded, this.parkingSlotToButton, parkingSlotAddedButton);
             this.addClickListenerToParkingSlot(parkingSlotJustAdded, parkingSlotAddedButton);
         } catch (Exception e) {
             Util.openErrorDialog(e.getMessage());
@@ -288,7 +300,7 @@ public class CarParkScreen {
     private void handleDeleteParkingSlot() {
         try {
             carPark.deleteParkingSlot(this.parkingSlotInFocusID);
-            this.parkingSlotsPanel.removeParkingSlotButton(this.parkingSlotInFocusID);
+            this.parkingSlotsSubScreen.removeParkingSlotButton(this.parkingSlotInFocusID);
             this.parkingSlotInFocusID = "";
             this.optionsPanel.unpaintParkingSlotOptions();
         } catch (Exception e) {

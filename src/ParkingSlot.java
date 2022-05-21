@@ -6,7 +6,7 @@
 public class ParkingSlot {
     private String identifier;
     private Car carParked;
-    private String type;
+    private String slotType;
 
     /**
      * Create an instance of ParkingSlot based on the identifier.
@@ -15,9 +15,9 @@ public class ParkingSlot {
     public ParkingSlot(String identifier) {
         setIdentifier(identifier);
         if (identifier.charAt(0) == 'V') {
-            this.type = "Visitor";
+            this.slotType = "Visitor";
         } else {
-            this.type = "Staff";
+            this.slotType = "Staff";
         }
     }
 
@@ -55,8 +55,8 @@ public class ParkingSlot {
      * Gets the type of the parking slot (Staff or Visitor).
      * @return the type of the parking slot.
      */
-    public String getType() {
-        return type;
+    public String getSlotType() {
+        return slotType;
     }
 
     /**

@@ -9,11 +9,11 @@ import java.util.Map;
  * Represents panel which displays parking slots, as well as performing GUI updates to the panel when a slot
  * is modified.
  */
-public class ParkingSlotsPanel {
+public class ParkingSlotsSubScreen {
     private static final int NUM_SLOTS_PER_ROW = 15;
 
     private static final Border IN_FOCUS_BORDER  = BorderFactory.createLineBorder(Color.BLACK, 2);
-    private static final Border DEFAULT_BORDER = BorderFactory.createLineBorder(new Color(1, 245, 220), 2);
+    private static final Border DEFAULT_BORDER = BorderFactory.createLineBorder(new Color(1, 245, 220), 1);
 
     private final JPanel parkingSlotsPanel = new JPanel();
 
@@ -21,10 +21,10 @@ public class ParkingSlotsPanel {
      * Creates an instance of ParkingSlotsPanel. Also sets width and height of parking slots panel based on the
      * initial width and height of the JFrame.
      */
-    public ParkingSlotsPanel() {
-        final double width = Screen.WIDTH * CarParkScreen.PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER;
+    public ParkingSlotsSubScreen() {
+        final double width = ParentWindow.WIDTH * CarParkScreen.PARKING_SLOTS_PANEl_WIDTH_MULTIPLIER;
         final int widthInt = (int) width;
-        this.parkingSlotsPanel.setPreferredSize(new Dimension(widthInt, Screen.HEIGHT));
+        this.parkingSlotsPanel.setPreferredSize(new Dimension(widthInt, ParentWindow.HEIGHT));
     }
 
     /**
@@ -121,7 +121,6 @@ public class ParkingSlotsPanel {
      * @param parkingSlotToButton: Maps parking slots to JButtons.
      * @param newParkingSlotButton: The new parking slot button added to the car park panel.
      */
-
     public void paintNewParkingSlot(ParkingSlot newParkingSlot, LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, JButton newParkingSlotButton) {
 
         final String newParkingSlotIdentifier = newParkingSlot.getIdentifier();
@@ -137,10 +136,19 @@ public class ParkingSlotsPanel {
         this.parkingSlotsPanel.repaint();
     }
 
-    public void highlightParkingSlotInFocus (JButton parkingSlotButton) {
+    /**
+     * Highlights the parking slot currently in focus.
+     * @param parkingSlotButton: The parking slot currently in focus.
+     */
+    public void highlightParkingSlotInFocus(JButton parkingSlotButton) {
         parkingSlotButton.setBorder(IN_FOCUS_BORDER);
     }
 
+    /**
+     * Unhighlights the parking slot that has just lost focus (first by setting border to null and then applying
+     * default border. This ensures that borders aren't continuously created and layered).
+     * @param parkingSlotButton: The parking slot that just lost focus.
+     */
     public void unhighlightParkingSlot(JButton parkingSlotButton) {
         // Sets border to default
         parkingSlotButton.setBorder(null);

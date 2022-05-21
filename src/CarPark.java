@@ -80,7 +80,7 @@ public class CarPark {
         StringBuilder resultString = new StringBuilder();
         for (ParkingSlot parkingSlot: this.parkingSlots.values()) {
             String parkingSlotIdentifier = parkingSlot.getIdentifier();
-            String parkingSlotType = parkingSlot.getType();
+            String parkingSlotType = parkingSlot.getSlotType();
             String occupiedStatus = parkingSlot.getCarParked() != null ? "occupied" : "not occupied";
             String template = "SlotID is: %s, is for %s, and is %s\n";
             resultString.append(String.format(template, parkingSlotIdentifier, parkingSlotType, occupiedStatus));

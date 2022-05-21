@@ -41,7 +41,7 @@ public class Util {
 
         final JPanel ownerTypeInputPanel = new JPanel();
         ownerTypeInputPanel.add(new JLabel("Owner Type: "));
-        String[] ownerTypes = {parkingSlotInFocus.getType()};
+        String[] ownerTypes = {parkingSlotInFocus.getSlotType()};
         final JComboBox ownerTypesComboBox = new JComboBox<>(ownerTypes);
         ownerTypesComboBox.setName(CAR_OWNER_TYPE_COMBO_BOX_NAME);
         ownerTypeInputPanel.add(ownerTypesComboBox);
@@ -154,9 +154,16 @@ public class Util {
         return namesToComponents;
     }
 
-    public static JButton getParkingSlotButtonFromIdentifier(HashMap<String, Component> namesToComponents, ParkingSlotsPanel parkingSlotsPanel, String parkingSlotIdentifier) {
+    /**
+     * Gets a JButton for a parking slot given the parking slot identifier (as well as an instance of ParkingSlotsPanel).
+     * @param namesToComponents: Initial hash map that maps names to components. Used recursively to construct the hash map.
+     * @param parkingSlotsSubScreen: Instance of ParkingSlotsPanel which represents GUI for parking slots.
+     * @param parkingSlotIdentifier: The parking slot identifier of the JButton.
+     * @return JButton representing parking slot.
+     */
+    public static JButton getParkingSlotButtonFromIdentifier(HashMap<String, Component> namesToComponents, ParkingSlotsSubScreen parkingSlotsSubScreen, String parkingSlotIdentifier) {
         final HashMap<String, Component> parkingSlotsToButtons =
-                createNamesToComponentsMap(namesToComponents, parkingSlotsPanel.getParkingSlotsPanel());
+                createNamesToComponentsMap(namesToComponents, parkingSlotsSubScreen.getParkingSlotsPanel());
         final JButton parkingSlotButton = (JButton) parkingSlotsToButtons.get(parkingSlotIdentifier);
         return parkingSlotButton;
     }

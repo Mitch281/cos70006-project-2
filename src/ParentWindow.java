@@ -4,7 +4,7 @@ import java.awt.*;
 /**
  * Represents a screen made up of two pages (slot input page and car park page).
  */
-public class Screen {
+public class ParentWindow {
 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 500;
@@ -23,7 +23,7 @@ public class Screen {
      * Creates an instance of Screen. Specifies width and height of main JFrame and sets default on close behaviour
      * to exit on close.
      */
-    public Screen() {
+    public ParentWindow() {
         this.window.setSize(WIDTH, HEIGHT);
         this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

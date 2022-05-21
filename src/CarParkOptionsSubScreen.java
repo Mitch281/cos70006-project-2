@@ -4,7 +4,7 @@ import java.awt.*;
 /**
  * Displays the options panel for operations on parking slots. Also displays the car parked in parking slots.
  */
-public class CarParkOptionsPanel {
+public class CarParkOptionsSubScreen {
 
     private final JPanel optionsPanel = new JPanel(new GridBagLayout());
     private final GridBagConstraints gbc = new GridBagConstraints();
@@ -22,13 +22,13 @@ public class CarParkOptionsPanel {
      * Creates an instance of the CarParkOptionsPanel class. Also sets grid bag constraints anchor to north,
      * grid bag constraints weight y to 1 and sets the size of the options panel.
      */
-    public CarParkOptionsPanel() {
+    public CarParkOptionsSubScreen() {
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.weighty = 1;
 
-        final double width = CarParkScreen.OPTIONS_PANEL_WIDTH_MULTIPLIER * Screen.WIDTH;
+        final double width = CarParkScreen.OPTIONS_PANEL_WIDTH_MULTIPLIER * ParentWindow.WIDTH;
         final int widthInt = (int) width;
-        this.optionsPanel.setPreferredSize(new Dimension(widthInt, Screen.HEIGHT));
+        this.optionsPanel.setPreferredSize(new Dimension(widthInt, ParentWindow.HEIGHT));
     }
 
     /**
