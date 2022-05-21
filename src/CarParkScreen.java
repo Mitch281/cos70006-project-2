@@ -120,14 +120,39 @@ public class CarParkScreen {
      */
     private void handleParkingSlotButtonClick(ParkingSlot parkingSlotClicked) {
         boolean isParkingSlotClickedInFocus = this.isParkingSlotClickedInFocus(parkingSlotClicked);
-        if (isParkingSlotClickedInFocus) {
-            this.parkingSlotInFocusID = parkingSlotClicked.getIdentifier();
-        } else {
+        final String parkingSlotIdentifierClicked = parkingSlotClicked.getIdentifier();
+
+        // The parking slot we clicked is in focus and is unfocusing another parking slot.
+        if (isParkingSlotClickedInFocus && !this.parkingSlotInFocusID.isEmpty()) {
+            final JButton oldParkingSlotButtonInFocus = Util.getParkingSlotButtonFromIdentifier(new HashMap<>(), parkingSlotsPanel, this.parkingSlotInFocusID);
+            parkingSlotsPanel.unhighlightParkingSlot(oldParkingSlotButtonInFocus);
+
+            this.parkingSlotInFocusID = parkingSlotIdentifierClicked;
+
+            final JButton newParkingSlotButtonInFocus = Util.getParkingSlotButtonFromIdentifier
+                    (new HashMap<>(), parkingSlotsPanel, parkingSlotIdentifierClicked);
+            parkingSlotsPanel.highlightParkingSlotInFocus(newParkingSlotButtonInFocus);
+        }
+        // The parking slot we clicked is in focus but no other parking slot was in focus before.
+        else if (isParkingSlotClickedInFocus && this.parkingSlotInFocusID.isEmpty()) {
+            this.parkingSlotInFocusID = parkingSlotIdentifierClicked;
+
+            final JButton newParkingSlotButtonInFocus = Util.getParkingSlotButtonFromIdentifier
+                    (new HashMap<>(), parkingSlotsPanel, parkingSlotIdentifierClicked);
+            parkingSlotsPanel.highlightParkingSlotInFocus(newParkingSlotButtonInFocus);
+        }
+        // The parking slot we clicked was the same as the one in focus. Thus, we unfocus it.
+        else {
+            final JButton oldParkingSlotButtonInFocus = Util.
+                    getParkingSlotButtonFromIdentifier(new HashMap<>(), parkingSlotsPanel, parkingSlotIdentifierClicked);
+            parkingSlotsPanel.unhighlightParkingSlot(oldParkingSlotButtonInFocus);
+
             this.parkingSlotInFocusID = "";
         }
 
         this.toggleOptionsPanel(parkingSlotClicked, isParkingSlotClickedInFocus);
     }
+
 
     private boolean isParkingSlotClickedInFocus(ParkingSlot parkingSlotClicked) {
         boolean isParkingSlotInFocus = true;

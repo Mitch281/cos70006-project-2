@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -10,6 +11,9 @@ import java.util.Map;
  */
 public class ParkingSlotsPanel {
     private static final int NUM_SLOTS_PER_ROW = 15;
+
+    private static final Border IN_FOCUS_BORDER  = BorderFactory.createLineBorder(Color.BLACK, 2);
+    private static final Border DEFAULT_BORDER = BorderFactory.createLineBorder(new Color(1, 245, 220), 2);
 
     private final JPanel parkingSlotsPanel = new JPanel();
 
@@ -57,6 +61,7 @@ public class ParkingSlotsPanel {
             final JButton parkingSlotButton = new JButton();
             final String parkingSlotIdentifier = parkingSlot.getIdentifier();
             parkingSlotButton.setName(parkingSlotIdentifier);
+            parkingSlotButton.setBorder(DEFAULT_BORDER);
             parkingSlotToButton.put(parkingSlot, parkingSlotButton);
         }
     }
@@ -116,6 +121,7 @@ public class ParkingSlotsPanel {
      * @param parkingSlotToButton: Maps parking slots to JButtons.
      * @param newParkingSlotButton: The new parking slot button added to the car park panel.
      */
+
     public void paintNewParkingSlot(ParkingSlot newParkingSlot, LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton, JButton newParkingSlotButton) {
 
         final String newParkingSlotIdentifier = newParkingSlot.getIdentifier();
@@ -129,6 +135,16 @@ public class ParkingSlotsPanel {
 
         this.parkingSlotsPanel.validate();
         this.parkingSlotsPanel.repaint();
+    }
+
+    public void highlightParkingSlotInFocus (JButton parkingSlotButton) {
+        parkingSlotButton.setBorder(IN_FOCUS_BORDER);
+    }
+
+    public void unhighlightParkingSlot(JButton parkingSlotButton) {
+        // Sets border to default
+        parkingSlotButton.setBorder(null);
+        parkingSlotButton.setBorder(DEFAULT_BORDER);
     }
 
     /**

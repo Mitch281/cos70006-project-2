@@ -154,6 +154,13 @@ public class Util {
         return namesToComponents;
     }
 
+    public static JButton getParkingSlotButtonFromIdentifier(HashMap<String, Component> namesToComponents, ParkingSlotsPanel parkingSlotsPanel, String parkingSlotIdentifier) {
+        final HashMap<String, Component> parkingSlotsToButtons =
+                createNamesToComponentsMap(namesToComponents, parkingSlotsPanel.getParkingSlotsPanel());
+        final JButton parkingSlotButton = (JButton) parkingSlotsToButtons.get(parkingSlotIdentifier);
+        return parkingSlotButton;
+    }
+
     /**
      * Opens a dialog telling the user parking slot the desired car was found in (or message telling user car wasn't
      * found if it wasn't found).
