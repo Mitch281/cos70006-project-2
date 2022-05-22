@@ -20,7 +20,7 @@ public class ParentWindow {
     private final CarParkScreen carParkScreen = new CarParkScreen();
 
     /**
-     * Creates an instance of Screen. Specifies width and height of main JFrame and sets default on close behaviour
+     * Creates an instance of ParentWindow. Specifies width and height of main JFrame and sets default on close behaviour
      * to exit on close.
      */
     public ParentWindow() {
