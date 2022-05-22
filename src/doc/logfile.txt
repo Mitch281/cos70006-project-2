@@ -1,0 +1,56 @@
+Class documentation
+<---- javadoc command: ---->
+C:\Program Files\BlueJ\jdk\bin\javadoc.exe
+-author
+-version
+-nodeprecated
+-package
+-Xdoclint:none
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+11
+-classpath
+C:\Program Files\BlueJ\lib\bluejcore.jar;C:\Program Files\BlueJ\lib\junit-jupiter-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-api-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-migrationsupport-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-params-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-commons-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-console-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-console-standalone-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-engine-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-launcher-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-reporting-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-runner-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-suite-api-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-testkit-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-quickcheck-core-0.9.jar;C:\Program Files\BlueJ\lib\junit-vintage-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\hamcrest-core-1.3.jar;C:\Program Files\BlueJ\lib\hamcrest-library-1.3.jar;C:\Program Files\BlueJ\lib\lang-stride.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.base.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.controls.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.fxml.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.graphics.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.media.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.properties.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.swing.jar;C:\Program Files\BlueJ\lib\javafx\lib\javafx.web.jar;C:\Users\61403\cos70006\project-2\src
+-d
+C:\Users\61403\cos70006\project-2\src\doc
+-encoding
+windows-1252
+-charset
+windows-1252
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java
+<---- end of javadoc command ---->
+Loading source file C:\Users\61403\cos70006\project-2\src\CarParkScreen.java...
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:199: error: : expected
+                case "park car" -> this.handleParkCar(inputPanel);
+                               ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:199: error: illegal start of expression
+                case "park car" -> this.handleParkCar(inputPanel);
+                                ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:200: error: : expected
+                case "find car" -> this.handleFindCar(inputPanel);
+                               ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:200: error: illegal start of expression
+                case "find car" -> this.handleFindCar(inputPanel);
+                                ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:201: error: : expected
+                case "remove car" -> this.handleRemoveCar(carParked);
+                                 ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:201: error: illegal start of expression
+                case "remove car" -> this.handleRemoveCar(carParked);
+                                  ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:202: error: : expected
+                case "add parking slot" -> this.handleAddParkingSlot(inputPanel);
+                                       ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:202: error: illegal start of expression
+                case "add parking slot" -> this.handleAddParkingSlot(inputPanel);
+                                        ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:203: error: : expected
+                case "delete parking slot" -> this.handleDeleteParkingSlot();
+                                          ^
+C:\Users\61403\cos70006\project-2\src\CarParkScreen.java:203: error: illegal start of expression
+                case "delete parking slot" -> this.handleDeleteParkingSlot();
+                                           ^
+10 errors

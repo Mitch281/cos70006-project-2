@@ -196,11 +196,21 @@ public class CarParkScreen {
         final int result = JOptionPane.showConfirmDialog(null, inputPanel, header, JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             switch (action) {
-                case "park car" -> this.handleParkCar(inputPanel);
-                case "find car" -> this.handleFindCar(inputPanel);
-                case "remove car" -> this.handleRemoveCar(carParked);
-                case "add parking slot" -> this.handleAddParkingSlot(inputPanel);
-                case "delete parking slot" -> this.handleDeleteParkingSlot();
+                case "park car":
+                    this.handleParkCar(inputPanel);
+                    break;
+                case "find car":
+                    this.handleFindCar(inputPanel);
+                    break;
+                case "remove car":
+                    this.handleRemoveCar(carParked);
+                    break;
+                case "add parking slot":
+                    this.handleAddParkingSlot(inputPanel);
+                    break;
+                case "delete parking slot":
+                    this.handleDeleteParkingSlot();
+                    break;
             }
         }
     }
