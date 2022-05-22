@@ -24,7 +24,7 @@ public class CarParkScreen {
 
     private final JPanel carParkPanel = new JPanel();
     private final ParkingSlotsSubScreen parkingSlotsSubScreen = new ParkingSlotsSubScreen();
-    private final CarParkOptionsSubScreen optionsPanel = new CarParkOptionsSubScreen();
+    private final CarParkOptionsSubScreen carParkOptionsSubScreen = new CarParkOptionsSubScreen();
 
     private final CarPark carPark = new CarPark();
     private final LinkedHashMap<ParkingSlot, JButton> parkingSlotToButton = new LinkedHashMap<>();
@@ -38,28 +38,28 @@ public class CarParkScreen {
     public CarParkScreen() {
         this.carParkPanel.setLayout(new BorderLayout());
         this.carParkPanel.add(this.parkingSlotsSubScreen.getParkingSlotsPanel(), BorderLayout.LINE_START);
-        this.carParkPanel.add(this.optionsPanel.getOptionsPanel(), BorderLayout.LINE_END);
+        this.carParkPanel.add(this.carParkOptionsSubScreen.getOptionsPanel(), BorderLayout.LINE_END);
     }
 
     /**
      * Create a listener to resize the parking slot and options panels when the screen is resized by the user.
      */
     public void addScreenResizeListener() {
-        final JFrame window = (JFrame) SwingUtilities.windowForComponent(this.optionsPanel.getOptionsPanel());
+        final JFrame window = (JFrame) SwingUtilities.windowForComponent(this.carParkOptionsSubScreen.getOptionsPanel());
 
         // Resize listener for when user changes size of window by dragging.
         window.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 parkingSlotsSubScreen.setParkingSlotsPanelSize(window);
-                optionsPanel.setCarParkOptionsPanelSize(window);
+                carParkOptionsSubScreen.setCarParkOptionsPanelSize(window);
             }
         });
 
         // Resize listener for when user maximises window.
         window.addWindowStateListener(e -> {
             parkingSlotsSubScreen.setParkingSlotsPanelSize(window);
-            optionsPanel.setCarParkOptionsPanelSize(window);
+            carParkOptionsSubScreen.setCarParkOptionsPanelSize(window);
         });
     }
 
@@ -88,8 +88,8 @@ public class CarParkScreen {
      * the options panel.
      */
     public void initialPaintOptionsPanel() {
-        this.optionsPanel.paintOptionsPanelHeader();
-        this.optionsPanel.paintParkingSlotOptions();
+        this.carParkOptionsSubScreen.paintOptionsPanelHeader();
+        this.carParkOptionsSubScreen.paintParkingSlotOptions();
         this.addButtonActionListeners();
     }
 
@@ -178,9 +178,9 @@ public class CarParkScreen {
      */
     private void toggleOptionsPanel(ParkingSlot parkingSlotClicked, boolean isParkingSlotClickedInFocus) {
         if (isParkingSlotClickedInFocus) {
-            this.optionsPanel.repaintParkingSlotOptions(parkingSlotClicked);
+            this.carParkOptionsSubScreen.repaintParkingSlotOptions(parkingSlotClicked);
         } else {
-            this.optionsPanel.unpaintParkingSlotOptions();
+            this.carParkOptionsSubScreen.unpaintParkingSlotOptions();
         }
     }
 
@@ -312,7 +312,7 @@ public class CarParkScreen {
             carPark.deleteParkingSlot(this.parkingSlotInFocusID);
             this.parkingSlotsSubScreen.removeParkingSlotButton(this.parkingSlotInFocusID);
             this.parkingSlotInFocusID = "";
-            this.optionsPanel.unpaintParkingSlotOptions();
+            this.carParkOptionsSubScreen.unpaintParkingSlotOptions();
         } catch (Exception e) {
             Util.openErrorDialog(e.getMessage());
         }
@@ -323,30 +323,30 @@ public class CarParkScreen {
      * are clicked.
      */
     private void addButtonActionListeners() {
-        this.optionsPanel.getParkCarButton().addActionListener(e -> {
+        this.carParkOptionsSubScreen.getParkCarButton().addActionListener(e -> {
             final ParkingSlot parkingSlotInFocus = this.carPark.getParkingSlots().get(this.parkingSlotInFocusID);
             final JPanel parkCarInputPanel = Util.createParkCarInputPanel(parkingSlotInFocus);
             this.openDialogInput(parkCarInputPanel, PARK_CAR_DIALOG_HEADER, ACTIONS[0], null);
         });
 
-        this.optionsPanel.getFindCarButton().addActionListener(e -> {
+        this.carParkOptionsSubScreen.getFindCarButton().addActionListener(e -> {
             final JPanel findCarInputPanel = Util.createFindCarInputPanel();
             this.openDialogInput(findCarInputPanel, FIND_CAR_DIALOG_HEADER, ACTIONS[1], null);
         });
 
-        this.optionsPanel.getRemoveCarButton().addActionListener(e -> {
+        this.carParkOptionsSubScreen.getRemoveCarButton().addActionListener(e -> {
             final ParkingSlot parkingSlotInFocus = carPark.getParkingSlots().get(this.parkingSlotInFocusID);
             final Car carParked = parkingSlotInFocus.getCarParked();
             final JPanel removeCarInputPanel = Util.createRemoveCarInputPanel(parkingSlotInFocus);
             this.openDialogInput(removeCarInputPanel, REMOVE_CAR_DIALOG_HEADER, ACTIONS[2], carParked);
         });
 
-        this.optionsPanel.getAddParkingSlotButton().addActionListener(e -> {
+        this.carParkOptionsSubScreen.getAddParkingSlotButton().addActionListener(e -> {
             final JPanel addParkingSlotInputPanel = Util.createAddParkingSlotInputPanel();
             this.openDialogInput(addParkingSlotInputPanel, ADD_PARKING_SLOT_DIALOG_HEADER, ACTIONS[3], null);
         });
 
-        this.optionsPanel.getDeleteParkingSlotButton().addActionListener(e -> {
+        this.carParkOptionsSubScreen.getDeleteParkingSlotButton().addActionListener(e -> {
             final ParkingSlot parkingSlotInFocus = carPark.getParkingSlots().get(this.parkingSlotInFocusID);
             final JPanel deleteParkingSlotInputPanel = Util.createDeleteParkingSlotInputPanel(parkingSlotInFocus);
             this.openDialogInput(deleteParkingSlotInputPanel, DELETE_PARKING_SLOT_DIALOG_HEADER, ACTIONS[4], null);
