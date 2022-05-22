@@ -110,7 +110,7 @@ public class CarParkScreen {
      * @param parkingSlotButton: The JButton to add the action listener to.
      */
     private void addClickListenerToParkingSlot(ParkingSlot parkingSlot, JButton parkingSlotButton) {
-        parkingSlotButton.addActionListener(e -> handleParkingSlotButtonClick(parkingSlot));
+        parkingSlotButton.addActionListener(e -> this.handleParkingSlotButtonClick(parkingSlot));
     }
 
     /**
