@@ -157,7 +157,7 @@ public class Util {
     /**
      * Gets a JButton for a parking slot given the parking slot identifier (as well as an instance of ParkingSlotsPanel).
      * @param namesToComponents: Initial hash map that maps names to components. Used recursively to construct the hash map.
-     * @param parkingSlotsSubScreen: Instance of ParkingSlotsPanel which represents GUI for parking slots.
+     * @param parkingSlotsSubScreen: Instance of ParkingSlotsSubScreen.
      * @param parkingSlotIdentifier: The parking slot identifier of the JButton.
      * @return JButton representing parking slot.
      */

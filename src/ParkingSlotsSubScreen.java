@@ -18,7 +18,7 @@ public class ParkingSlotsSubScreen {
     private final JPanel parkingSlotsPanel = new JPanel();
 
     /**
-     * Creates an instance of ParkingSlotsPanel. Also sets width and height of parking slots panel based on the
+     * Creates an instance of ParkingSlotsSubScreen. Also sets width and height of parking slots panel based on the
      * initial width and height of the JFrame.
      */
     public ParkingSlotsSubScreen() {

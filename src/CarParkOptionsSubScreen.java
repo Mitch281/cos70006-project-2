@@ -19,7 +19,7 @@ public class CarParkOptionsSubScreen {
     private final JButton deleteParkingSlotButton = new JButton("Delete Parking Slot");
 
     /**
-     * Creates an instance of the CarParkOptionsPanel class. Also sets grid bag constraints anchor to north,
+     * Creates an instance of the CarParkOptionsSubScreen class. Also sets grid bag constraints anchor to north,
      * grid bag constraints weight y to 1 and sets the size of the options panel.
      */
     public CarParkOptionsSubScreen() {
